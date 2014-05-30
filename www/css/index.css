@@ -113,3 +113,40 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+
+.ui-page-theme-b div.ui-input-text:before {
+	background:none !important; 
+}
+
+.ui-page-theme-b div.ui-input-text:after {
+	background:none !important; 
+}
+
+.ui-page-theme-b div.ui-input-text {
+	border-width:0px !important; 
+}
+
+.ui-page-theme-b div>div.ui-input-text {
+	border-width:1px !important; 
+}
+
+.block {
+  text-align: center;
+}
+ 
+.block:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -0.25em; /* Adjusts for spacing */
+}
+
+.centered {
+  display: inline-block;
+  vertical-align: middle;
+  width: 300px;
+}
+
+
