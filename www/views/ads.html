@@ -1,0 +1,13 @@
+<ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+{% for item in items %}
+	<!-- 
+	  <li data-role="list-divider">{{ item.uuid }} <span class="ui-li-count">2</span></li>
+	 -->
+    <li><a href="?ad=2">
+        <img src="https://localhost:10001/public/uploads/{{item.fileUploads[0].url}}_thumb">
+        <h2>{{ item.price }}&euro; {{ item.amount }} kg</h2>
+        <p> {{ item.category }} {{ item.subCategory }} {{ item.decription }}</p>
+        <p class="ui-li-aside">{{ item.created }}</p>
+    </a></li>
+{% endfor %}  
+</ul>	

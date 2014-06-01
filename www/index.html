@@ -1,110 +1,149 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>nativeDroid - Theme for jQuery Mobile</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>STI Corp</title>
         <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <meta name="msapplication-tap-highlight" content="no" />
-		
-		<!-- FontAwesome - http://fortawesome.github.io/Font-Awesome/ -->
         <link rel="stylesheet" href="css/font-awesome.min.css" />
-
-		<!-- jQueryMobileCSS - original without styling -->
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-
-		<!-- nativeDroid core CSS -->
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
         <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
-
-		<!-- nativeDroid: Light/Dark -->
         <link rel="stylesheet" href="css/jquerymobile.nativedroid.dark.css"  id='jQMnDTheme' />
-
-		<!-- nativeDroid: Color Schemes -->
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
-
-		<!-- jQuery / jQueryMobile Scripts -->
-		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
-
-
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.blue.css" id='jQMnDColor' />
+		<script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/jquery.mobile-1.4.2.min.js"></script>
+	    <script type="text/javascript" src="js/nunjucks.min.js"></script>
+	    <script type="text/javascript" src="js/scrap.js"></script>
+	    <script type="text/javascript">
+	        $(document).ready(function(){
+				scrap.init();
+	        });
+	    </script>
     </head>
     <body>
-        
-    <div data-role="page" data-theme='b'>
-
-
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
-            <h1>nativeDroid v0.2.6</h1>
-            <a href="http://nativedroid.godesign.ch/" data-ajax='false' target='_blank'><i class='fa fa-android'></i></a>
-        </div>
-        
-        <div data-role="content">   
-
-			<ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
-	            <li data-role="list-divider">Demos</li>
-	            <li >
-					<a href="text.html" data-ajax="false"><i class='fa fa-align-left'></i> Text Elements</a>
-	            </li>
-	            <li >
-					<a href="headerfooter.html" data-ajax="false"><i class='fa fa-angle-down'></i> Header &amp; Footer</a>
-	            </li>
-	            <li>
-					<a href="tables.html" data-ajax="false"><i class='fa fa-table'></i> Tables</a>
-	            </li>
-	            <li>
-					<a href="dialogsnpopups.html" data-ajax="false"><i class='fa fa-external-link'></i> Dialogs &amp; Popups</a>
-	            </li>
-	            <li>
-					<a href="panels.html" data-ajax="false"><i class='fa fa-tasks'></i> Panels</a>
-	            </li>
-	            <li>
-					<a href="autocomplete.html" data-ajax="false"><i class='fa fa-filter'></i> Autocomplete</a>
-	            </li>
-	            <li>
-					<a href="collapsible.html" data-ajax="false"><i class='fa fa-chevron-up'></i> Collapsible</a>
-	            </li>
-	            <li>
-					<a href="accordions.html" data-ajax="false"><i class='fa fa-chevron-right'></i> Accordions</a>
-	            </li>
-	            <li>
-					<a href="listviews.html" data-ajax="false"><i class='fa fa-list'></i> Listviews</a>
-	            </li>
-	            <li>
-					<a href="forms.html" data-ajax="false"><i class='fa fa-external-link'></i> Forms</a>
-	            </li>
-	            <li data-role="list-divider">Experimental</li>
-	            <li>
-					<a href="cards.html" data-ajax="false"><i class='fa fa-reorder'></i> Cards</a>
-	            </li>
-	            <li>
-					<a href="gallery.html" data-ajax="false"><i class='fa fa-picture-o'></i> Gallery</a>
-	            </li>
-	            <!-- <li>
-					<a href="homescreen.html" data-ajax="false"><i class='fa fa-home'></i> Homescreen</a>
-	            </li> -->
-	            <li data-role="list-divider">Information</li>
-	            <li >
-					<a href="gettingstarted.html" data-ajax="false"><i class='fa fa-magic'></i> Getting started</a>
-	            </li>
-	            <li>
-					<a href="features.html" data-ajax="false"><i class='fa fa-lightbulb-o'></i> Features</a>
-	            </li>
-	            <li>
-					<a href="colorsandstyles.html" data-ajax="false"><i class='fa fa-tint'></i> Colors &amp; Styles</a>
-	            </li>
-	            <li>
-					<a href="icons.html" data-ajax="false"><i class='fa fa-fire'></i> Icons</a>
-	            </li>
-	            <li>
-					<a href="license.html" data-ajax="false"><i class='fa fa-legal'></i> Credits &amp; License</a>
-	            </li>
-	        </ul>
-        </div>
-
+    
+    
+    
+    
+    <div data-role="page" id="index" data-theme='b'>
+		<!-- empty first page -->    
     </div>
     
+    
+    
+    
+    <div data-role="page" id="main" data-theme='b'>
+		<div class="header-container" data-title="Notifications"></div>    
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+		    <h2>
+		    	STI Corp - Notifications
+		    	<a href="#login" data-ajax='false' id="logoutButton" style="float:right;margin-right:0px"><i class='fa fa-sign-out'></i></a>
+		    	<a href="#" data-ajax='false' class="syncButton" style="float:right;margin-right:20px"><i class='fa fa-refresh'></i></a>
+		    </h2>
+		</div>   
+ 		<div data-role="content" class="ui-content" role="main">
+	        <div id="notifications-container"></div>
+	    </div>  
+		<div class="footer-container"></div>
+    </div>
+    
+    
+    
+        
+    <div data-role="page" id=ads data-theme='b'>
+    	<div class="header-container" data-title="Ads"></div>
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+		    <h2>
+		    	STI Corp - Ads
+		    	<a href="#login" data-ajax='false' id="logoutButton" style="float:right;margin-right:0px"><i class='fa fa-sign-out'></i></a>
+		    	<a href="#" data-ajax='false' class="syncButton" style="float:right;margin-right:20px"><i class='fa fa-refresh'></i></a>
+		    </h2>
+		</div>   
+		<div data-role="panel" data-display="push" id="mypanel" data-theme="b" class="ui-panel ui-panel-position-left ui-panel-display-push ui-panel-closed ui-body-b ui-panel-animate">
+	        <div class="ui-panel-inner"><ul data-role="listview" class="ui-listview">
+	            <li class="ui-li-static ui-body-inherit ui-first-child">Your wishes</li>
+	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-coffee"></i>Need a Coffee</a></li>
+	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-beer"></i>Have a Beer</a></li>
+	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-music"></i>Play Music</a></li>
+	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-fire"></i>Make a fire</a></li>
+	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-bullhorn"></i>Shout it loud</a></li>
+	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-heart"></i>Meet friends</a></li>
+	            <li data-icon="false" class="ui-last-child"><a href="#" class="ui-btn"><i class="lIcon fa fa-trophy"></i>Win a Trophy</a></li>
+	        </ul></div>
+	    </div>
+		<div data-role="content" class="ui-content" role="main">
+	        <div id="ads-container"></div>
+		</div>
+		<div class="footer-container"></div>
+    </div>
+
+
+
+
+
+
+	<div data-role="page" id="login" class="ui-content" data-theme="b">
+       	<div id="loginForm" style="width:80%;margin:0px auto;">
+		    <div style="height:50px"></div>
+            <form>
+				<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+					<li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit">
+                        <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
+                        	<input type="text" name="login" id="login" value=""	data-clear-btn="true" placeholder="Login">
+                        	<a href="#" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Clear text</a>
+                        </div>
+                    </li>
+					
+					<li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit">
+                        <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
+                        	<input type="password" name="password" id="password" value="" data-clear-btn="true" placeholder="Password">
+                        	<a href="#" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Clear text</a>
+                        </div>
+                    </li>
+                    
+					<li class="ui-li-static ui-body-inherit ui-last-child">
+						<button type="button" id="loginButton" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all"><i class="lIcon fa fa-check"></i>Log in</button>					
+                   	</li>	                    
+	            </ul>
+            </form>
+        </div>		
+	</div>
+
+
+
+
+
+
+    <div data-role="page" id="newAd" data-theme='b'>
+    	<div class="header-container" data-title="New Ad"></div> 
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
+		    <h2>
+		    	STI Corp - New Ad
+		    	<a href="#login" data-ajax='false' id="logoutButton" style="float:right;margin-right:0px"><i class='fa fa-sign-out'></i></a>
+		    	<a href="#" data-ajax='false' class="syncButton" style="float:right;margin-right:20px"><i class='fa fa-refresh'></i></a>
+		    </h2>
+		</div>    
+ 		
+ 		<div data-role="content" class="ui-content" role="main">
+ 			ddd
+	    </div>  
+		<div class="footer-container"></div>
+    </div>
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+       app.initialize();   
+    </script>
     </body>
 </html>
