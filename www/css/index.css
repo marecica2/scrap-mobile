@@ -153,4 +153,7 @@ h1 {
 	margin-left: 15px !important;
 }
 
+.ui-overlay-b .ui-page-theme-b {
+	min-height:1200px !important;
+}
 

@@ -12,21 +12,60 @@
         <link rel="stylesheet" href="css/font-awesome.min.css" />
 		<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
         <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.dark.css"  id='jQMnDTheme' />
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.blue.css" id='jQMnDColor' />
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css"  id='jQMnDTheme' />
+        <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
 		<script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery.mobile-1.4.2.min.js"></script>
-	    <script type="text/javascript" src="js/nunjucks.min.js"></script>
+	    <script type="text/javascript" src="js/handlebars.js"></script>
 	    <script type="text/javascript" src="js/scrap.js"></script>
+	    <script src="http://debug.phonegap.com/target/target-script-min.js#tes4564"></script>
 	    <script type="text/javascript">
-	        $(document).ready(function(){
+			$(document).ready(function(){
 				scrap.init();
 	        });
 	    </script>
     </head>
     <body>
     
-    
+    <!-- templates -->
+	<script id="ads-template" type="text/x-handlebars-template">
+<ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+	{{#each items}}
+	<!-- 
+	  <li data-role="list-divider">{{ this }} <span class="ui-li-count">2</span></li>
+	 -->
+    <li><a href="?ad=2">
+        <img src="https://localhost:10001/public/uploads/{{ this.fileUploads.0.url }}_thumb">
+        <h2>{{ this.price }}&euro; {{ this.amount }} kg</h2>
+        <p> {{ this.category }} {{ this.subCategory }} {{ this.decription }}</p>
+        <p class="ui-li-aside">{{ this.created }}</p>
+    </a></li>
+	{{/each}}  
+</ul>			
+	</script>    
+	<script id="notifications-template" type="text/x-handlebars-template">
+<ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+	{{#each items}}
+    <li data-role="list-divider">On 31 May 2014 <span class="ui-li-count">14:20 CEST</span></li>
+    <li><a href="?ad=2">
+        <h2>Notification description</h2>
+        <p> Further description</p>
+        <p class="ui-li-aside">On 31 May 2014</p>
+    </a></li>
+	{{/each}}  
+</ul>			
+	</script>    
+	<script id="footer-template" type="text/x-handlebars-template">
+<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false" data-theme='b'>
+	<div data-role="navbar">
+		<ul>
+			<li><a href="#main" data-transition="slide"><i class='blIcon fa fa-bell'></i>Notifications</a></li>
+			<li><a href="#ads" data-transition="slide"><i class='blIcon fa fa-cubes'></i>Published Ads</a></li>
+			<li><a href="#newAd" data-transition="slide"><i class='blIcon fa fa-share'></i>Create new Ad</a></li>
+		</ul>
+	</div>
+</div>		
+	</script>    
     
     
     <div data-role="page" id="index" data-theme='b'>
@@ -126,19 +165,51 @@
 		    	<a href="#login" data-ajax='false' id="logoutButton" style="float:right;margin-right:0px"><i class='fa fa-sign-out'></i></a>
 		    	<a href="#" data-ajax='false' class="syncButton" style="float:right;margin-right:20px"><i class='fa fa-refresh'></i></a>
 		    </h2>
-		</div>    
- 		
- 		<div data-role="content" class="ui-content" role="main">
- 			ddd
-	    </div>  
+		</div>
+
+		<div data-role="content" class="ui-content" role="main">
+			<form id="newAdForm" method="post" action="#newAd">
+				<ul data-role="listview" data-inset="true">
+					<li data-role="fieldcontain">
+						<label for="select-choice-1b" class="select">Category</label> 
+						<select name="select-choice-1" id="newAdCategory" data-native-menu="true">
+							<option value="javascript">Metal scrap</option>
+							<option value="css">Mixed scrap</option>
+							<option value="css">Demolitions</option>
+							<option value="css">Second hand</option>
+							<option value="html">Transport</option>
+							<option value="html">Job offer</option>
+						</select>
+					</li>
+					<li data-role="fieldcontain">
+						<label for="select-choice-1b" class="select">Sub-category</label> 
+						<select name="select-choice-1" id="newAdSubcategory" data-native-menu="true">
+							<option value="html">Aluminium</option>
+							<option value="javascript">Copper</option>
+							<option value="html">Aluminium</option>
+							<option value="css">Steel</option>
+						</select>
+					</li>
+                    <li data-role="fieldcontain">
+                    	<button type="button" data-inline='true'><i class='lIcon fa fa-camera'></i>Take photos</button>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="name2b">Price:</label>
+                        <input type="text" name="name2" id="newAdPrice" value="" data-clear-btn="true" placeholder="Price">
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="name2b">Amount:</label>
+                        <input type="text" name="name2" id="newAdAmount" value="" data-clear-btn="true" placeholder="Amount">
+                    </li>                    					
+                    <li style="text-align:left">
+						<button type="button" id="newAdSubmit" data-inline='true'><i class='lIcon fa fa-check'></i>Submit</button>
+						<button type="reset" id="newAdReset" data-inline='true'><i class='lIcon fa fa-times'></i>Cancel</button>
+                    </li>					
+				</ul>
+			</form>
+		</div>
 		<div class="footer-container"></div>
     </div>
-	        
-	        
-	        
-	        
-	        
-	        
 	        
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>

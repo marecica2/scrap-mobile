@@ -1,7 +1,9 @@
 var MyLocalStorage = {};
 
 MyLocalStorage.getItem = function(key) {
-    return JSON.parse(localStorage.getItem(key));
+    if(localStorage.getItem(key) != null)
+        return JSON.parse(localStorage.getItem(key));
+    return null;
 };
 
 MyLocalStorage.setItem = function(key, object) {
@@ -13,11 +15,18 @@ MyLocalStorage.removeItem = function(key) {
 };
 
 var scrap = {
-    //host: "https://localhost:10001",
-    host: "https://192.168.1.100:10001",
+    parseJson : function(json){
+        if(json != null){
+            var obj = JSON.parse(json);  
+            return obj;
+        }
+        return null;
+    },    
+        
+    host: "http://192.168.1.100:9002",
     
     init: function(){
-        nunjucks.configure('views', { autoescape: false });
+
         //scrap.header();
         scrap.footer();
         
@@ -26,7 +35,7 @@ var scrap = {
             $.mobile.navigate( "#login", { transition: "slide" });
         } else {
             console.log("redirect to main");
-            $.mobile.navigate("#main");
+            $.mobile.navigate("#newAd");
             scrap.listAds();
             scrap.listNotifications();
         }
@@ -43,31 +52,62 @@ var scrap = {
         $(".syncButton").click(function(){
             scrap.sync();
         });        
+        $("#newAdSubmit").click(function(){
+            scrap.newAd();
+        });        
     },
     
     sync: function(){
         scrap.getAds("", function(data){
+            console.log("%% GET ADS RESULT");
             console.log(data);
             MyLocalStorage.setItem("ads", JSON.stringify(data));
             scrap.listAds();
         });
         scrap.getAds("", function(data){
+            console.log("%% GET NOTIFICATIONS RESULT");
+            console.log(data);
             MyLocalStorage.setItem("notifications", JSON.stringify(data));
             scrap.listNotifications();
         });
     },
     
+    newAd: function(){
+        var ad = {};
+        ad.category = $("#newAdCategory").val();
+        ad.subCategory = $("#newAdSubcategory").val();
+        ad.price = $("#newAdPrice").val();
+        ad.amount = $("#newAdAmount").val();
+        console.log(ad);
+        
+        var newAds = MyLocalStorage.getItem("newAds");
+        if(newAds == null || newAds == undefined){
+            newAds = [];
+        }
+        newAds.push(ad);
+        MyLocalStorage.setItem("newAds", newAds);
+        $("#newAdReset").click();
+    },
+    
     listAds: function() {
         var items = MyLocalStorage.getItem("ads");
-        items = JSON.parse(items);
-        var html = nunjucks.render('ads.html', {'items' : items});
+        items = scrap.parseJson(items);
+        //var html = nunjucks.render('ads.html', {'items' : items});
+        
+        var source = $("#ads-template").html();
+        var template = Handlebars.compile(source);
+        var html = template({"items": items});
         $("#ads-container").html(html).trigger("create");
     },
 
     listNotifications: function() {
         var items = MyLocalStorage.getItem("notifications");
-        items = JSON.parse(items);
-        var html = nunjucks.render('notifications.html', {'items' : items});
+        items = scrap.parseJson(items);
+        //var html = nunjucks.render('notifications.html', {'items' : items});
+        
+        var source = $("#notifications-template").html();
+        var template = Handlebars.compile(source);
+        var html = template({"items": items});        
         $("#notifications-container").html(html).trigger("create");
     },
 
@@ -76,7 +116,6 @@ var scrap = {
         MyLocalStorage.removeItem("login");
     },
 
-        
     login: function() {
         MyLocalStorage.setItem("password", $("#password").val());
         MyLocalStorage.setItem("login", $("#login").val());
@@ -87,7 +126,10 @@ var scrap = {
     },
     
     footer: function() {
-        var html = nunjucks.render('footer.html');
+        //var html = nunjucks.render('footer.html');
+        var source = $("#footer-template").html();
+        var template = Handlebars.compile(source);
+        var html = template();           
         $(".footer-container").html(html).trigger("create");
     },
 
@@ -100,11 +142,33 @@ var scrap = {
     },
     
     getAds : function(params, success, error){
+        console.log("%% GET " + scrap.host+"/ads?"+params);
         $.ajax({
             type: "GET",
             url: scrap.host+"/ads?"+params,
             success: success,
-            error: error,
+            error: function(err){
+                console.log(err);
+                console.log(err.status);
+                console.log(err.statusText);
+                console.log(err.responseText);
+            },
+            contentType: "application/json"
+        });
+    },
+
+    postAd : function(params, success, error){
+        console.log("%% POST " + scrap.host+"/mobile-ad-new?"+params);
+        $.ajax({
+            type: "POST",
+            url: scrap.host+"/mobile-ad-new?"+params,
+            success: success,
+            error: function(err){
+                console.log(err);
+                console.log(err.status);
+                console.log(err.statusText);
+                console.log(err.responseText);
+            },
             contentType: "application/json"
         });
     },

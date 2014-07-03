@@ -18,6 +18,7 @@ var app = {
     onDeviceReady: function() {
         //app.receivedEvent('deviceready');
         console.log("device is ready");
+        console.log("calling scrap init");
         scrap.init();
         console.log("scrap init successfull");
     },
