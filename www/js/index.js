@@ -1,3 +1,9 @@
+window.onerror = function(message, url, lineNumber) {  
+  alert(JSON.stringify(JSON.stringify(message)));
+  alert(JSON.stringify(lineNumber));
+  alert(JSON.stringify(url));
+  return true;
+};  
 
 var app = {
     // Application Constructor
@@ -10,6 +16,18 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener("backbutton", this.onBackKeyDown, false);
+        document.addEventListener("menubutton", this.onMenuKeyDown, false);
+    },
+    
+    onMenuKeyDown: function() {
+        $.mobile.navigate("#page4");      
+    },
+
+    onBackKeyDown: function() {
+        if(confirm("Ukonciť aplikáciu?")){
+            navigator.app.exitApp();       
+        }
     },
     
     // deviceready Event Handler
@@ -21,7 +39,11 @@ var app = {
         console.log("calling scrap init");
         scrap.init();
         console.log("scrap init successfull");
+        
+
     },
+    
+    
     
     // Update DOM on a Received Event
     receivedEvent: function(id) {

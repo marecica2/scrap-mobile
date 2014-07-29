@@ -3,213 +3,470 @@
     <head>
         <title>STI Corp</title>
         <meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta name="format-detection" content="telephone=no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		<meta name="viewport" content="width=device-width; initial-scale=2.0; maximum-scale=1.4; minimum-scale=1.4; user-scalable=no; target-densityDpi=device-dpi" />
+
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <link rel="stylesheet" href="css/font-awesome.min.css" />
-		<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css"  id='jQMnDTheme' />
-        <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.red.css" id='jQMnDColor' />
+        <link rel="stylesheet" href="css/font-awesome.min.css" /> 
+		
+		<link rel="stylesheet" href="themes/sti.min.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.3.min.css" />
+		
+		<!-- jquery javascripts -->
 		<script src="js/jquery-1.9.1.min.js"></script>
-        <script src="js/jquery.mobile-1.4.2.min.js"></script>
+		<script src="js/jquery.mobile-1.4.3.js"></script>
+
+		<!-- my javascripts -->
 	    <script type="text/javascript" src="js/handlebars.js"></script>
 	    <script type="text/javascript" src="js/scrap.js"></script>
-	    <script src="http://debug.phonegap.com/target/target-script-min.js#tes4564"></script>
+	    <script type="text/javascript" src="http://192.168.1.100:8080/target/target-script-min.js"></script>
 	    <script type="text/javascript">
 			$(document).ready(function(){
-				scrap.init();
+				//scrap.init();
 	        });
 	    </script>
     </head>
     <body>
     
-    <!-- templates -->
+    <!-- Stored ads -->
 	<script id="ads-template" type="text/x-handlebars-template">
-<ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
+<ul data-role="listview"> 
 	{{#each items}}
-	<!-- 
-	  <li data-role="list-divider">{{ this }} <span class="ui-li-count">2</span></li>
-	 -->
-    <li><a href="?ad=2">
-        <img src="https://localhost:10001/public/uploads/{{ this.fileUploads.0.url }}_thumb">
-        <h2>{{ this.price }}&euro; {{ this.amount }} kg</h2>
-        <p> {{ this.category }} {{ this.subCategory }} {{ this.decription }}</p>
-        <p class="ui-li-aside">{{ this.created }}</p>
-    </a></li>
+	<li class="ui-li-has-thumb">
+        <a href="#popupMenu{{ this.uuid }}" data-rel="popup" data-transition="fade">
+        <img src="images/type{{ this.type }}.jpg">
+        <p>
+			{{ this.created }}<br/>
+			{{ this.typeLabel }}
+			{{#if this.category }} {{ this.categoryLabel }} {{/if}}
+			{{#if this.subCategory }} / {{ this.subCategoryLabel }} {{/if}}
+			<b> 
+				{{#if this.price }} <span>{{ this.price }} &euro;</span> {{/if}}
+				{{#if this.amount }} {{ this.amount }} kg {{/if}}
+			</b>
+		</p>
+        </a>
+		<div data-role="popup" class="popups" id="popupMenu{{ this.uuid }}" data-theme="b">
+        	<ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider">Vyber možnosť</li>
+            <li><a href="#" data-id="{{ this.uuid }}"class="new-ad-send">Odoslat</a></li>
+            <li><a  class="new-ad-delete" data-id="{{ this.uuid }}" href="#">Zmazat</a></li>
+        	</ul>
+		</div>
+	</li>
+
 	{{/each}}  
 </ul>			
 	</script>    
+	
+	<!-- Notifications -->
 	<script id="notifications-template" type="text/x-handlebars-template">
 <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="b">
 	{{#each items}}
-    <li data-role="list-divider">On 31 May 2014 <span class="ui-li-count">14:20 CEST</span></li>
-    <li><a href="?ad=2">
-        <h2>Notification description</h2>
-        <p> Further description</p>
-        <p class="ui-li-aside">On 31 May 2014</p>
-    </a></li>
+	
+	{{#if this.first }} 
+	    <li data-role="list-divider">Čas {{ this.createdTime }} <span class="ui-li-count">{{ this.createdDate }}</span></li>
+	{{/if}}
+    <li>
+    <a href="#popupNotificationMenu{{ this.uuid }}" data-rel="popup" data-transition="fade">
+        <p>Nový inzerát pre kategóriu: <b>{{ this.typeLabel }}</b></p>
+        <p> 
+			{{#if this.category }} {{ this.categoryLabel }} {{/if}}
+			{{#if this.subCategory }} / {{ this.subCategoryLabel }} {{/if}}	
+			<b>Cena {{ this.price }} &euro;</b>	
+			<b>Množstvo {{ this.price }} kg</b>	
+		</p>
+        <p class="">Čas zverejnenia {{ this.published }}</p>
+    </a>
+
+	<div data-role="popup" class="popups" id="popupNotificationMenu{{ this.uuid }}" data-theme="b">
+       	<ul data-role="listview" data-inset="true" style="min-width:210px;">
+           <li data-role="list-divider">Vyber možnosť</li>
+           <li><a href="#" onclick="window.open('{{ ../host }}/ad?uuid={{ this.uuid }}', '_system');" >Otvor inzerát</a></li>
+           <li><a  class="notification-delete" data-id="{{ this.uuid }}" href="#">Zmazať</a></li>
+       	</ul>
+	</div>
+	</li>
 	{{/each}}  
 </ul>			
 	</script>    
-	<script id="footer-template" type="text/x-handlebars-template">
-<div data-position="fixed" data-tap-toggle="false" data-role="footer" data-tap-toggle="false" data-theme='b'>
-	<div data-role="navbar">
-		<ul>
-			<li><a href="#main" data-transition="slide"><i class='blIcon fa fa-bell'></i>Notifications</a></li>
-			<li><a href="#ads" data-transition="slide"><i class='blIcon fa fa-cubes'></i>Published Ads</a></li>
-			<li><a href="#newAd" data-transition="slide"><i class='blIcon fa fa-share'></i>Create new Ad</a></li>
-		</ul>
-	</div>
-</div>		
-	</script>    
+
+	<!-- Select boxes -->
+	<script id="ad-form-template" type="text/x-handlebars-template">
+	<li data-role="fieldcontain">
+		<label for="select-choice-1b" class="select">Kategoria</label> 
+		<select class="span5" name="category" id="category" data-type="personal" >
+			<option value="" ></option>
+			<option value="001">{{ i18n "ad.category.001" }}</option>
+			<option value="002">{{ i18n "ad.category.002" }}</option>
+			<option value="003">{{ i18n "ad.category.003" }}</option>
+			<option value="004">{{ i18n "ad.category.004" }}</option>
+			<option value="005">{{ i18n "ad.category.005" }}</option>
+			<option value="006">{{ i18n "ad.category.006" }}</option>
+			<option value="007">{{ i18n "ad.category.007" }}</option>
+			<option value="008">{{ i18n "ad.category.008" }}</option>
+			<option value="009">{{ i18n "ad.category.009" }}</option>
+			<option value="010">{{ i18n "ad.category.010" }}</option>
+		</select>
+	</li>					
+	<li data-role="fieldcontain">
+		<label for="select-choice-1b" class="select">Podkategoria</label> 
+		<select class="span5" id="subCategory" name="subCategory" id="subCategory">
+		</select>
+	</li>
+	<li data-role="fieldcontain">
+		<div style="display:none;">
+		<select id="backup" style="display:none;">
+		<option value="001001">{{ i18n "ad.subcategory.001001" }}</option>
+		<option value="001002">{{ i18n "ad.subcategory.001002" }}</option>
+		<option value="001003">{{ i18n "ad.subcategory.001003" }}</option>
+		<option value="001004">{{ i18n "ad.subcategory.001004" }}</option>
+		<option value="001005">{{ i18n "ad.subcategory.001005" }}</option>
+		<option value="001006">{{ i18n "ad.subcategory.001006" }}</option>
+		<option value="001007">{{ i18n "ad.subcategory.001007" }}</option>
+		<option value="001008">{{ i18n "ad.subcategory.001008" }}</option>
+		<option value="001009">{{ i18n "ad.subcategory.001009" }}</option>
+		<option value="001010">{{ i18n "ad.subcategory.001010" }}</option>
+		<option value="001011">{{ i18n "ad.subcategory.001011" }}</option>
+		<option value="001012">{{ i18n "ad.subcategory.001012" }}</option>
+		<option value="001013">{{ i18n "ad.subcategory.001013" }}</option>
+		<option value="001014">{{ i18n "ad.subcategory.001014" }}</option>
+		
+		<option value="002001">{{ i18n "ad.subcategory.002001" }}</option>
+		<option value="002002">{{ i18n "ad.subcategory.002002" }}</option>
+		<option value="002003">{{ i18n "ad.subcategory.002003" }}</option>
+		<option value="002004">{{ i18n "ad.subcategory.002004" }}</option>
+		<option value="002005">{{ i18n "ad.subcategory.002005" }}</option>
+		<option value="002006">{{ i18n "ad.subcategory.002006" }}</option>
+		<option value="002007">{{ i18n "ad.subcategory.002007" }}</option>
+		<option value="002008">{{ i18n "ad.subcategory.002008" }}</option>
+		<option value="002009">{{ i18n "ad.subcategory.002009" }}</option>
+		<option value="002010">{{ i18n "ad.subcategory.002010" }}</option>
+		<option value="002011">{{ i18n "ad.subcategory.002011" }}</option>
+		<option value="002012">{{ i18n "ad.subcategory.002012" }}</option>
+		<option value="002013">{{ i18n "ad.subcategory.002013" }}</option>
+		<option value="002014">{{ i18n "ad.subcategory.002014" }}</option>
+		<option value="002015">{{ i18n "ad.subcategory.002015" }}</option>
+		<option value="002016">{{ i18n "ad.subcategory.002016" }}</option>
+		<option value="002017">{{ i18n "ad.subcategory.002017" }}</option>
+		<option value="002018">{{ i18n "ad.subcategory.002018" }}</option>
+		<option value="002019">{{ i18n "ad.subcategory.002019" }}</option>
+		<option value="002020">{{ i18n "ad.subcategory.002020" }}</option>
+		<option value="002021">{{ i18n "ad.subcategory.002021" }}</option>
+		<option value="002022">{{ i18n "ad.subcategory.002022" }}</option>
+		
+		<option value="003001">{{ i18n "ad.subcategory.003001" }}</option>
+		<option value="003002">{{ i18n "ad.subcategory.003002" }}</option>
+		<option value="003003">{{ i18n "ad.subcategory.003003" }}</option>
+		<option value="003004">{{ i18n "ad.subcategory.003004" }}</option>
+		<option value="003005">{{ i18n "ad.subcategory.003005" }}</option>
+		<option value="003006">{{ i18n "ad.subcategory.003006" }}</option>
+		<option value="003007">{{ i18n "ad.subcategory.003007" }}</option>
+		<option value="003008">{{ i18n "ad.subcategory.003008" }}</option>
+		<option value="003009">{{ i18n "ad.subcategory.003009" }}</option>
+		<option value="003010">{{ i18n "ad.subcategory.003010" }}</option>
+		<option value="003011">{{ i18n "ad.subcategory.003011" }}</option>
+		<option value="003012">{{ i18n "ad.subcategory.003012" }}</option>
+		<option value="003013">{{ i18n "ad.subcategory.003013" }}</option>
+		<option value="003014">{{ i18n "ad.subcategory.003014" }}</option>
+		<option value="003015">{{ i18n "ad.subcategory.003015" }}</option>
+		<option value="003016">{{ i18n "ad.subcategory.003016" }}</option>
+		<option value="003017">{{ i18n "ad.subcategory.003017" }}</option>
+		<option value="003018">{{ i18n "ad.subcategory.003018" }}</option>
+		<option value="003019">{{ i18n "ad.subcategory.003019" }}</option>
+		<option value="003020">{{ i18n "ad.subcategory.003020" }}</option>
+		<option value="003021">{{ i18n "ad.subcategory.003021" }}</option>
+		<option value="003022">{{ i18n "ad.subcategory.003022" }}</option>		
+		<option value="003023">{{ i18n "ad.subcategory.003023" }}</option>		
+		<option value="003024">{{ i18n "ad.subcategory.003024" }}</option>		
+		<option value="003025">{{ i18n "ad.subcategory.003025" }}</option>		
+		<option value="003026">{{ i18n "ad.subcategory.003026" }}</option>		
+		<option value="003027">{{ i18n "ad.subcategory.003027" }}</option>		
+		<option value="003028">{{ i18n "ad.subcategory.003028" }}</option>		
+		<option value="003029">{{ i18n "ad.subcategory.003029" }}</option>		
+		<option value="003030">{{ i18n "ad.subcategory.003030" }}</option>	
+		
+		<option value="004001">{{ i18n "ad.subcategory.004001" }}</option>
+		<option value="004002">{{ i18n "ad.subcategory.004002" }}</option>
+		<option value="004003">{{ i18n "ad.subcategory.004003" }}</option>
+		<option value="004004">{{ i18n "ad.subcategory.004004" }}</option>
+		<option value="004005">{{ i18n "ad.subcategory.004005" }}</option>
+		<option value="004006">{{ i18n "ad.subcategory.004006" }}</option>
+		
+		<option value="005001">{{ i18n "ad.subcategory.005001" }}</option>
+		<option value="005002">{{ i18n "ad.subcategory.005002" }}</option>
+		<option value="005003">{{ i18n "ad.subcategory.005003" }}</option>
+		<option value="005004">{{ i18n "ad.subcategory.005004" }}</option>
+		<option value="005005">{{ i18n "ad.subcategory.005005" }}</option>
+		<option value="005006">{{ i18n "ad.subcategory.005006" }}</option>
+		<option value="005007">{{ i18n "ad.subcategory.005007" }}</option>
+		<option value="005008">{{ i18n "ad.subcategory.005008" }}</option>
+		<option value="005009">{{ i18n "ad.subcategory.005009" }}</option>
+		<option value="005010">{{ i18n "ad.subcategory.005010" }}</option>
+		<option value="005011">{{ i18n "ad.subcategory.005011" }}</option>
+		<option value="005012">{{ i18n "ad.subcategory.005012" }}</option>	
+		
+		<option value="006001">{{ i18n "ad.subcategory.006001" }}</option>
+		<option value="006002">{{ i18n "ad.subcategory.006002" }}</option>
+		<option value="006003">{{ i18n "ad.subcategory.006003" }}</option>
+		<option value="006004">{{ i18n "ad.subcategory.006004" }}</option>
+		<option value="006005">{{ i18n "ad.subcategory.006005" }}</option>
+		<option value="006006">{{ i18n "ad.subcategory.006006" }}</option>
+		<option value="006007">{{ i18n "ad.subcategory.006007" }}</option>			
+
+		<option value="007001">{{ i18n "ad.subcategory.007001" }}</option>
+		<option value="007002">{{ i18n "ad.subcategory.007002" }}</option>
+		<option value="007003">{{ i18n "ad.subcategory.007003" }}</option>
+		<option value="007004">{{ i18n "ad.subcategory.007004" }}</option>
+		<option value="007005">{{ i18n "ad.subcategory.007005" }}</option>
+		<option value="007006">{{ i18n "ad.subcategory.007006" }}</option>
+
+		<option value="008001">{{ i18n "ad.subcategory.008001" }}</option>
+		<option value="008002">{{ i18n "ad.subcategory.008002" }}</option>
+		<option value="008003">{{ i18n "ad.subcategory.008003" }}</option>
+		<option value="008004">{{ i18n "ad.subcategory.008004" }}</option>
+		
+		<option value="009001">{{ i18n "ad.subcategory.009001" }}</option>
+		<option value="009002">{{ i18n "ad.subcategory.009002" }}</option>
+		<option value="009003">{{ i18n "ad.subcategory.009003" }}</option>
+		<option value="009004">{{ i18n "ad.subcategory.009004" }}</option>
+		<option value="009005">{{ i18n "ad.subcategory.009005" }}</option>
+		<option value="009006">{{ i18n "ad.subcategory.009006" }}</option>
+		<option value="009007">{{ i18n "ad.subcategory.009007" }}</option>
+		<option value="009008">{{ i18n "ad.subcategory.009008" }}</option>
+		<option value="009009">{{ i18n "ad.subcategory.009009" }}</option>
+		
+		<option value="010001">{{ i18n "ad.subcategory.010001" }}</option>
+		<option value="010002">{{ i18n "ad.subcategory.010002" }}</option>
+		<option value="010003">{{ i18n "ad.subcategory.010003" }}</option>
+		<option value="010004">{{ i18n "ad.subcategory.010004" }}</option>
+		<option value="010005">{{ i18n "ad.subcategory.010005" }}</option>
+		<option value="010006">{{ i18n "ad.subcategory.010006" }}</option>
+		<option value="010007">{{ i18n "ad.subcategory.010007" }}</option>
+		<option value="010008">{{ i18n "ad.subcategory.010008" }}</option>
+		<option value="010009">{{ i18n "ad.subcategory.010009" }}</option>
+		<option value="010010">{{ i18n "ad.subcategory.010010" }}</option>		
+		</select>
+		</div>
+	</li>
+	</script>	    
     
-    
-    <div data-role="page" id="index" data-theme='b'>
-		<!-- empty first page -->    
-    </div>
-    
-    
-    
-    
-    <div data-role="page" id="main" data-theme='b'>
-		<div class="header-container" data-title="Notifications"></div>    
-		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
-		    <h2>
-		    	STI Corp - Notifications
-		    	<a href="#login" data-ajax='false' id="logoutButton" style="float:right;margin-right:0px"><i class='fa fa-sign-out'></i></a>
-		    	<a href="#" data-ajax='false' class="syncButton" style="float:right;margin-right:20px"><i class='fa fa-refresh'></i></a>
-		    </h2>
-		</div>   
- 		<div data-role="content" class="ui-content" role="main">
-	        <div id="notifications-container"></div>
-	    </div>  
-		<div class="footer-container"></div>
-    </div>
-    
-    
-    
-        
-    <div data-role="page" id=ads data-theme='b'>
-    	<div class="header-container" data-title="Ads"></div>
-		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
-		    <h2>
-		    	STI Corp - Ads
-		    	<a href="#login" data-ajax='false' id="logoutButton" style="float:right;margin-right:0px"><i class='fa fa-sign-out'></i></a>
-		    	<a href="#" data-ajax='false' class="syncButton" style="float:right;margin-right:20px"><i class='fa fa-refresh'></i></a>
-		    </h2>
-		</div>   
-		<div data-role="panel" data-display="push" id="mypanel" data-theme="b" class="ui-panel ui-panel-position-left ui-panel-display-push ui-panel-closed ui-body-b ui-panel-animate">
-	        <div class="ui-panel-inner"><ul data-role="listview" class="ui-listview">
-	            <li class="ui-li-static ui-body-inherit ui-first-child">Your wishes</li>
-	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-coffee"></i>Need a Coffee</a></li>
-	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-beer"></i>Have a Beer</a></li>
-	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-music"></i>Play Music</a></li>
-	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-fire"></i>Make a fire</a></li>
-	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-bullhorn"></i>Shout it loud</a></li>
-	            <li data-icon="false"><a href="#" class="ui-btn"><i class="lIcon fa fa-heart"></i>Meet friends</a></li>
-	            <li data-icon="false" class="ui-last-child"><a href="#" class="ui-btn"><i class="lIcon fa fa-trophy"></i>Win a Trophy</a></li>
-	        </ul></div>
+	<!-- Notifications -->
+	<div data-role="page" id="page1">
+	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+	    <h1><b>STI Mobile - Udalosti</b></h1>
+	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all">Settings</a>
+	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all">Log out</a>
+	  </div>
+	  <div data-role="main" class="ui-content" data-theme="a">
+	  	<div id="notifications-container"></div>
+	  </div>
+	  <div data-role="footer" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+	    <div data-role="navbar">
+	      <ul>
+	        <li><a href="#page1" data-transition="none"  class="ui-btn-active ui-state-persist" data-icon="clock">Udalosti</a></li>
+	        <li><a href="#page2" data-transition="none" data-icon="bullets">Uložené inzeráty</a></li>
+	        <li><a href="#page3" data-transition="none" data-icon="plus">Nový inzerát</a></li>
+	      </ul>
 	    </div>
-		<div data-role="content" class="ui-content" role="main">
-	        <div id="ads-container"></div>
-		</div>
-		<div class="footer-container"></div>
-    </div>
+	  </div>  
+	</div>    
 
 
+	<!-- List of adds -->
+	<div data-role="page" id="page2">
+	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+	    <h1><b>STI Mobile - Ulozene inzeraty</b></h1>
+	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all">Settings</a>
+	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all">Log out</a>
+	  </div>
+	  <div data-role="main" class="ui-content">
+	  	<div id="ads-container"></div>
+	  </div>
+	  <div data-role="footer" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+	    <div data-role="navbar">
+	      <ul>
+	        <li><a href="#page1" data-transition="none" data-icon="clock">Udalosti</a></li>
+	        <li><a href="#page2" data-transition="none"  class="ui-btn-active ui-state-persist" data-icon="bullets">Uložené inzeráty</a></li>
+	        <li><a href="#page3" data-transition="none" data-icon="plus">Nový inzerát</a></li>
+	      </ul>
+	    </div>
+	  </div>  
+	</div>    
 
 
-
-
-	<div data-role="page" id="login" class="ui-content" data-theme="b">
-       	<div id="loginForm" style="width:80%;margin:0px auto;">
-		    <div style="height:50px"></div>
-            <form>
-				<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-					<li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit">
-                        <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
-                        	<input type="text" name="login" id="login" value=""	data-clear-btn="true" placeholder="Login">
-                        	<a href="#" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Clear text</a>
-                        </div>
-                    </li>
-					
-					<li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit">
-                        <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
-                        	<input type="password" name="password" id="password" value="" data-clear-btn="true" placeholder="Password">
-                        	<a href="#" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Clear text</a>
-                        </div>
-                    </li>
-                    
-					<li class="ui-li-static ui-body-inherit ui-last-child">
-						<button type="button" id="loginButton" data-inline="true" class=" ui-btn ui-btn-inline ui-shadow ui-corner-all"><i class="lIcon fa fa-check"></i>Log in</button>					
-                   	</li>	                    
-	            </ul>
-            </form>
-        </div>		
-	</div>
-
-
-
-
-
-
-    <div data-role="page" id="newAd" data-theme='b'>
-    	<div class="header-container" data-title="New Ad"></div> 
-		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b'>
-		    <h2>
-		    	STI Corp - New Ad
-		    	<a href="#login" data-ajax='false' id="logoutButton" style="float:right;margin-right:0px"><i class='fa fa-sign-out'></i></a>
-		    	<a href="#" data-ajax='false' class="syncButton" style="float:right;margin-right:20px"><i class='fa fa-refresh'></i></a>
-		    </h2>
-		</div>
-
-		<div data-role="content" class="ui-content" role="main">
-			<form id="newAdForm" method="post" action="#newAd">
-				<ul data-role="listview" data-inset="true">
-					<li data-role="fieldcontain">
-						<label for="select-choice-1b" class="select">Category</label> 
-						<select name="select-choice-1" id="newAdCategory" data-native-menu="true">
-							<option value="javascript">Metal scrap</option>
-							<option value="css">Mixed scrap</option>
-							<option value="css">Demolitions</option>
-							<option value="css">Second hand</option>
-							<option value="html">Transport</option>
-							<option value="html">Job offer</option>
-						</select>
-					</li>
-					<li data-role="fieldcontain">
-						<label for="select-choice-1b" class="select">Sub-category</label> 
-						<select name="select-choice-1" id="newAdSubcategory" data-native-menu="true">
-							<option value="html">Aluminium</option>
-							<option value="javascript">Copper</option>
-							<option value="html">Aluminium</option>
-							<option value="css">Steel</option>
-						</select>
-					</li>
-                    <li data-role="fieldcontain">
-                    	<button type="button" data-inline='true'><i class='lIcon fa fa-camera'></i>Take photos</button>
-                    </li>
-                    <li data-role="fieldcontain">
-                        <label for="name2b">Price:</label>
-                        <input type="text" name="name2" id="newAdPrice" value="" data-clear-btn="true" placeholder="Price">
-                    </li>
-                    <li data-role="fieldcontain">
-                        <label for="name2b">Amount:</label>
-                        <input type="text" name="name2" id="newAdAmount" value="" data-clear-btn="true" placeholder="Amount">
-                    </li>                    					
-                    <li style="text-align:left">
-						<button type="button" id="newAdSubmit" data-inline='true'><i class='lIcon fa fa-check'></i>Submit</button>
-						<button type="reset" id="newAdReset" data-inline='true'><i class='lIcon fa fa-times'></i>Cancel</button>
-                    </li>					
+	<!-- new Ad -->
+	<div data-role="page" id="page3">
+	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+	    <h1><b>STI Mobile - Novy inzerat</b></h1>
+	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all">Settings</a>
+	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all">Log out</a>
+	  </div>
+	  <div data-role="main" class="ui-content">
+		<form id="newAdForm" method="post" action="#newAd">
+			<ul data-role="listview" data-inset="false">
+				<li style="text-align: left">
+					<button type="button" id="photo-button" data-inline='true' autofocus>
+						Odfoť fotografiu
+					</button>
+					<div id="imageContainer" style="padding:5px">
+					</div>
+				</li>
+				<li data-role="fieldcontain">
+					  <fieldset data-role="controlgroup">
+					      <label for="sell">Ponuka</label>
+					      <input type="radio" name="buySell" id="sell" value="sell" checked="checked">
+					      <label for="buy">Dopyt</label>
+					      <input type="radio" name="buySell" id="buy" value="buy"> 
+					  </fieldset>
+				</li>
+				<li data-role="fieldcontain">
+					  <fieldset data-role="controlgroup">
+					      <label for="priceType1">Inzerát</label>
+					      <input type="radio" name="priceType" id="priceType1" value="001" checked="checked">
+					      <label for="priceType2">Burza</label>
+					      <input type="radio" name="priceType" id="priceType2" value="002"> 
+					  </fieldset>
+				</li>
+				<li data-role="fieldcontain">
+					<label for="select-choice-1b" class="select">Typ</label> 
+					<select name="select-choice-1" id="type" data-native-menu="true">
+						<option value="001">Kovový šrot</option>
+						<option value="002">Zmiešaný šrot</option>
+						<option value="003">Demolácie</option>
+						<option value="004">Použité stroje</option>
+						<option value="005">Doprava</option>
+						<option value="006">Ponuka práce</option>
+					</select>
+				</li>
+				
+				<li data-role="fieldcontain" class="001 ad-form-template">
+				</li>
+				
+				<li data-role="fieldcontain"><label for="name2b">Cena (&euro;)</label>
+					<input type="text" name="name2" id="price" value="" data-clear-btn="true" >
+				</li>
+				
+				<li data-role="fieldcontain"><label for="name2b">Množstvo (kg)</label>
+					<input type="text" name="name2" id="amount" value="" data-clear-btn="true">
+				</li>
+				<li data-role="fieldcontain"><label for="name2b">Popis</label>
+					<textarea cols="40" rows="8" name="description" id="description" data-clear-btn="true"></textarea>
+				</li>
+				
+				<li style="text-align: left">
+					<button type="button" data-role="button" id="newAdSubmitSend">
+						Odoslať na server
+					</button>
+					<button type="button" data-role="button" id="newAdSubmit">
+						Uloziť lokálne
+					</button>
+					<button type="reset" id="newAdReset">
+						Vymazať formulár
+					</button>
+				</li>
 				</ul>
-			</form>
-		</div>
-		<div class="footer-container"></div>
-    </div>
+		</form>
+	  </div>
+	  <div data-role="footer" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+	    <div data-role="navbar">
+	      <ul>
+	        <li><a href="#page1" data-transition="none" data-icon="clock">Udalosti</a></li>
+	        <li><a href="#page2" data-transition="none" data-icon="bullets">Uložené inzeráty</a></li>
+	        <li><a href="#page3" data-transition="none" class="ui-btn-active ui-state-persist" data-icon="plus">Nový inzerát</a></li>
+	      </ul>
+	    </div>
+	  </div>  
+	</div>    
+    
+    
+    <!-- Login -->
+	<div data-role="page" id="login">
+	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+	    <h1><b>STI</b></h1>
+	  </div>
+	  <div data-role="main" class="ui-content">
+		<form id="newAdForm" method="post" action="#login">
+			<ul data-role="" data-inset="false" style="list-style-type: none;">
+				<li data-role="fieldcontain"><label for="loginValue">Login:</label>
+					<input type="text" name="login" id="loginValue" value="" data-clear-btn="true" placeholder="">
+				</li>
+				
+				<li data-role="fieldcontain"><label for="password">Heslo:</label>
+					<input type="password" name="password" id="password" value="" data-clear-btn="true" placeholder="">
+				</li>
+				
+				<li style="text-align: right">
+					<button type="button" id="loginButton" data-inline='true'>
+						Odoslať
+					</button>
+				</li>
+			</ul>
+		</form>
+	  </div>
+	</div>      
+	
+	
+	
+	
+	
+`	<!-- settings -->
+	<div data-role="page" id="page4">
+	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+	    <h1><b>STI Mobile - Nastavenia</b></h1>
+	    <a href="#" class="btn-logout ui-btn-right ui-state-persist ui-btn-active ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all">Log out</a>
+	  </div>
+	  <div data-role="main" class="ui-content" data-theme="a">
+		<form id="newAdForm" method="post" action="#newAd">
+			<ul data-role="listview" data-inset="false">
+				<li data-role="fieldcontain">
+					<div class="ui-field-contain">
+					    <fieldset data-role="controlgroup" data-mini="true">
+					        <legend>Frekvencia obnovy</legend>
+						    <input type="radio" name="refresh" id="r300000" value="300000" checked="checked">
+					       	<label for="r300000">5 min</label>
+						      
+						    <input type="radio" name="refresh" id="r120000" value="120000">
+						    <label for="r120000">2 min</label>
+						    
+						    <input type="radio" name="refresh" id="r60000" value="60000">						        
+						    <label for="r60000">1 min</label>
+
+						    <input type="radio" name="refresh" id="r10000" value="10000">						        
+						    <label for="r10000">10 sek</label>
+					    </fieldset>
+					</div>					  
+				</li>
+				<li data-role="fieldcontain">
+					<div class="ui-field-contain">
+					    <fieldset data-role="controlgroup" data-mini="true">
+					        <legend>Base url</legend>
+						    <input type="radio" name="baseUrl" id="baseUrl1" value="http://192.168.1.100:9002" checked="checked">
+					       	<label for="baseUrl1">localhost</label>
+						      
+						    <input type="radio" name="baseUrl" id="baseUrl2" value="http://bmsource.org:9002">
+						    <label for="baseUrl2">bmsource</label>
+					    </fieldset>
+					</div>					  
+				</li>
+				<li style="text-align: left">
+					<div>
+					<button type="button" data-role="button" id="settingsSave">
+						Uložit
+					</button>
+					<button type="button" data-role="button" id="settingsClear">
+						Zmazať dáta
+					</button>
+					<a data-rel="back" href="#" class="ui-shadow ui-btn ui-corner-all">Zrušiť</a>
+					</div>
+				</li>
+				</ul>
+		</form>
+	  </div>
+	</div> 	  
+    
+    
+    
 	        
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
