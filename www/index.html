@@ -3,7 +3,7 @@
     <head>
         <title>STI Corp</title>
         <meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width; initial-scale=2.0; maximum-scale=1.4; minimum-scale=1.4; user-scalable=no; target-densityDpi=device-dpi" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.5; maximum-scale=1.5; minimum-scale=1.5; user-scalable=no; target-densityDpi=device-dpi" />
 
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" href="css/font-awesome.min.css" /> 
@@ -19,10 +19,10 @@
 		<!-- my javascripts -->
 	    <script type="text/javascript" src="js/handlebars.js"></script>
 	    <script type="text/javascript" src="js/scrap.js"></script>
-	    <script type="text/javascript" src="http://192.168.1.100:8080/target/target-script-min.js"></script>
+	    <!-- script type="text/javascript" src="http://192.168.1.100:8080/target/target-script-min.js"></script-->
 	    <script type="text/javascript">
 			$(document).ready(function(){
-				//scrap.init();
+				scrap.init();
 	        });
 	    </script>
     </head>
@@ -48,9 +48,9 @@
         </a>
 		<div data-role="popup" class="popups" id="popupMenu{{ this.uuid }}" data-theme="b">
         	<ul data-role="listview" data-inset="true" style="min-width:210px;">
-            <li data-role="list-divider">Vyber možnosť</li>
-            <li><a href="#" data-id="{{ this.uuid }}"class="new-ad-send">Odoslat</a></li>
-            <li><a  class="new-ad-delete" data-id="{{ this.uuid }}" href="#">Zmazat</a></li>
+            <li data-role="list-divider">{{ lang "choose" }}</li>
+            <li><a href="#" data-id="{{ this.uuid }}"class="new-ad-send">{{ lang "send" }}</a></li>
+            <li><a  class="new-ad-delete" data-id="{{ this.uuid }}" href="#">{{ lang "delete" }}</a></li>
         	</ul>
 		</div>
 	</li>
@@ -67,23 +67,29 @@
 	{{#if this.first }} 
 	    <li data-role="list-divider">Čas {{ this.createdTime }} <span class="ui-li-count">{{ this.createdDate }}</span></li>
 	{{/if}}
+
     <li>
-    <a href="#popupNotificationMenu{{ this.uuid }}" data-rel="popup" data-transition="fade">
-        <p>Nový inzerát pre kategóriu: <b>{{ this.typeLabel }}</b></p>
+    <a href="#popupNotificationMenu{{ this.uuid }}" data-rel="popup" data-transition="none">
+		{{#if this.isAuction}} 
+    	    <p>Nová ponuka v aukcii <b>{{ this.typeLabel }}</b></p>
+		{{else}}
+    	    <p>{{ lang "newAdCat" }}: <b>{{ this.typeLabel }}</b></p>
+		{{/if}}
+
         <p> 
 			{{#if this.category }} {{ this.categoryLabel }} {{/if}}
 			{{#if this.subCategory }} / {{ this.subCategoryLabel }} {{/if}}	
-			<b>Cena {{ this.price }} &euro;</b>	
-			<b>Množstvo {{ this.price }} kg</b>	
+			<b>{{ lang "price" }} {{ this.price }} &euro;</b>	
+			<b>{{ lang "amount" }} {{ this.amount }} kg</b>	
 		</p>
-        <p class="">Čas zverejnenia {{ this.published }}</p>
+        <p class="">{{ lang "time" }} {{ this.published }}</p>
     </a>
 
 	<div data-role="popup" class="popups" id="popupNotificationMenu{{ this.uuid }}" data-theme="b">
        	<ul data-role="listview" data-inset="true" style="min-width:210px;">
-           <li data-role="list-divider">Vyber možnosť</li>
-           <li><a href="#" onclick="window.open('{{ ../host }}/ad?uuid={{ this.uuid }}', '_system');" >Otvor inzerát</a></li>
-           <li><a  class="notification-delete" data-id="{{ this.uuid }}" href="#">Zmazať</a></li>
+           <li data-role="list-divider">{{ lang "choose" }}</li>
+           <li><a href="#" onclick="window.open('{{ ../host }}/ad?uuid={{ this.uuid }}&Authorization={{ ../authorization }}', '_system');" >{{ lang "open" }}</a></li>
+           <li><a  class="notification-delete" data-id="{{ this.uuid }}" href="#">{{ lang "delete" }}</a></li>
        	</ul>
 	</div>
 	</li>
@@ -94,158 +100,158 @@
 	<!-- Select boxes -->
 	<script id="ad-form-template" type="text/x-handlebars-template">
 	<li data-role="fieldcontain">
-		<label for="select-choice-1b" class="select">Kategoria</label> 
+		<label for="select-choice-1b" class="select">{{ lang "category" }}</label> 
 		<select class="span5" name="category" id="category" data-type="personal" >
 			<option value="" ></option>
-			<option value="001">{{ i18n "ad.category.001" }}</option>
-			<option value="002">{{ i18n "ad.category.002" }}</option>
-			<option value="003">{{ i18n "ad.category.003" }}</option>
-			<option value="004">{{ i18n "ad.category.004" }}</option>
-			<option value="005">{{ i18n "ad.category.005" }}</option>
-			<option value="006">{{ i18n "ad.category.006" }}</option>
-			<option value="007">{{ i18n "ad.category.007" }}</option>
-			<option value="008">{{ i18n "ad.category.008" }}</option>
-			<option value="009">{{ i18n "ad.category.009" }}</option>
-			<option value="010">{{ i18n "ad.category.010" }}</option>
+			<option value="001">{{ lang "ad.category.001" }}</option>
+			<option value="002">{{ lang "ad.category.002" }}</option>
+			<option value="003">{{ lang "ad.category.003" }}</option>
+			<option value="004">{{ lang "ad.category.004" }}</option>
+			<option value="005">{{ lang "ad.category.005" }}</option>
+			<option value="006">{{ lang "ad.category.006" }}</option>
+			<option value="007">{{ lang "ad.category.007" }}</option>
+			<option value="008">{{ lang "ad.category.008" }}</option>
+			<option value="009">{{ lang "ad.category.009" }}</option>
+			<option value="010">{{ lang "ad.category.010" }}</option>
 		</select>
 	</li>					
 	<li data-role="fieldcontain">
-		<label for="select-choice-1b" class="select">Podkategoria</label> 
+		<label for="select-choice-1b" class="select">{{ lang "subcategory" }}</label> 
 		<select class="span5" id="subCategory" name="subCategory" id="subCategory">
 		</select>
 	</li>
 	<li data-role="fieldcontain">
 		<div style="display:none;">
 		<select id="backup" style="display:none;">
-		<option value="001001">{{ i18n "ad.subcategory.001001" }}</option>
-		<option value="001002">{{ i18n "ad.subcategory.001002" }}</option>
-		<option value="001003">{{ i18n "ad.subcategory.001003" }}</option>
-		<option value="001004">{{ i18n "ad.subcategory.001004" }}</option>
-		<option value="001005">{{ i18n "ad.subcategory.001005" }}</option>
-		<option value="001006">{{ i18n "ad.subcategory.001006" }}</option>
-		<option value="001007">{{ i18n "ad.subcategory.001007" }}</option>
-		<option value="001008">{{ i18n "ad.subcategory.001008" }}</option>
-		<option value="001009">{{ i18n "ad.subcategory.001009" }}</option>
-		<option value="001010">{{ i18n "ad.subcategory.001010" }}</option>
-		<option value="001011">{{ i18n "ad.subcategory.001011" }}</option>
-		<option value="001012">{{ i18n "ad.subcategory.001012" }}</option>
-		<option value="001013">{{ i18n "ad.subcategory.001013" }}</option>
-		<option value="001014">{{ i18n "ad.subcategory.001014" }}</option>
+		<option value="001001">{{ lang "ad.subcategory.001001" }}</option>
+		<option value="001002">{{ lang "ad.subcategory.001002" }}</option>
+		<option value="001003">{{ lang "ad.subcategory.001003" }}</option>
+		<option value="001004">{{ lang "ad.subcategory.001004" }}</option>
+		<option value="001005">{{ lang "ad.subcategory.001005" }}</option>
+		<option value="001006">{{ lang "ad.subcategory.001006" }}</option>
+		<option value="001007">{{ lang "ad.subcategory.001007" }}</option>
+		<option value="001008">{{ lang "ad.subcategory.001008" }}</option>
+		<option value="001009">{{ lang "ad.subcategory.001009" }}</option>
+		<option value="001010">{{ lang "ad.subcategory.001010" }}</option>
+		<option value="001011">{{ lang "ad.subcategory.001011" }}</option>
+		<option value="001012">{{ lang "ad.subcategory.001012" }}</option>
+		<option value="001013">{{ lang "ad.subcategory.001013" }}</option>
+		<option value="001014">{{ lang "ad.subcategory.001014" }}</option>
 		
-		<option value="002001">{{ i18n "ad.subcategory.002001" }}</option>
-		<option value="002002">{{ i18n "ad.subcategory.002002" }}</option>
-		<option value="002003">{{ i18n "ad.subcategory.002003" }}</option>
-		<option value="002004">{{ i18n "ad.subcategory.002004" }}</option>
-		<option value="002005">{{ i18n "ad.subcategory.002005" }}</option>
-		<option value="002006">{{ i18n "ad.subcategory.002006" }}</option>
-		<option value="002007">{{ i18n "ad.subcategory.002007" }}</option>
-		<option value="002008">{{ i18n "ad.subcategory.002008" }}</option>
-		<option value="002009">{{ i18n "ad.subcategory.002009" }}</option>
-		<option value="002010">{{ i18n "ad.subcategory.002010" }}</option>
-		<option value="002011">{{ i18n "ad.subcategory.002011" }}</option>
-		<option value="002012">{{ i18n "ad.subcategory.002012" }}</option>
-		<option value="002013">{{ i18n "ad.subcategory.002013" }}</option>
-		<option value="002014">{{ i18n "ad.subcategory.002014" }}</option>
-		<option value="002015">{{ i18n "ad.subcategory.002015" }}</option>
-		<option value="002016">{{ i18n "ad.subcategory.002016" }}</option>
-		<option value="002017">{{ i18n "ad.subcategory.002017" }}</option>
-		<option value="002018">{{ i18n "ad.subcategory.002018" }}</option>
-		<option value="002019">{{ i18n "ad.subcategory.002019" }}</option>
-		<option value="002020">{{ i18n "ad.subcategory.002020" }}</option>
-		<option value="002021">{{ i18n "ad.subcategory.002021" }}</option>
-		<option value="002022">{{ i18n "ad.subcategory.002022" }}</option>
+		<option value="002001">{{ lang "ad.subcategory.002001" }}</option>
+		<option value="002002">{{ lang "ad.subcategory.002002" }}</option>
+		<option value="002003">{{ lang "ad.subcategory.002003" }}</option>
+		<option value="002004">{{ lang "ad.subcategory.002004" }}</option>
+		<option value="002005">{{ lang "ad.subcategory.002005" }}</option>
+		<option value="002006">{{ lang "ad.subcategory.002006" }}</option>
+		<option value="002007">{{ lang "ad.subcategory.002007" }}</option>
+		<option value="002008">{{ lang "ad.subcategory.002008" }}</option>
+		<option value="002009">{{ lang "ad.subcategory.002009" }}</option>
+		<option value="002010">{{ lang "ad.subcategory.002010" }}</option>
+		<option value="002011">{{ lang "ad.subcategory.002011" }}</option>
+		<option value="002012">{{ lang "ad.subcategory.002012" }}</option>
+		<option value="002013">{{ lang "ad.subcategory.002013" }}</option>
+		<option value="002014">{{ lang "ad.subcategory.002014" }}</option>
+		<option value="002015">{{ lang "ad.subcategory.002015" }}</option>
+		<option value="002016">{{ lang "ad.subcategory.002016" }}</option>
+		<option value="002017">{{ lang "ad.subcategory.002017" }}</option>
+		<option value="002018">{{ lang "ad.subcategory.002018" }}</option>
+		<option value="002019">{{ lang "ad.subcategory.002019" }}</option>
+		<option value="002020">{{ lang "ad.subcategory.002020" }}</option>
+		<option value="002021">{{ lang "ad.subcategory.002021" }}</option>
+		<option value="002022">{{ lang "ad.subcategory.002022" }}</option>
 		
-		<option value="003001">{{ i18n "ad.subcategory.003001" }}</option>
-		<option value="003002">{{ i18n "ad.subcategory.003002" }}</option>
-		<option value="003003">{{ i18n "ad.subcategory.003003" }}</option>
-		<option value="003004">{{ i18n "ad.subcategory.003004" }}</option>
-		<option value="003005">{{ i18n "ad.subcategory.003005" }}</option>
-		<option value="003006">{{ i18n "ad.subcategory.003006" }}</option>
-		<option value="003007">{{ i18n "ad.subcategory.003007" }}</option>
-		<option value="003008">{{ i18n "ad.subcategory.003008" }}</option>
-		<option value="003009">{{ i18n "ad.subcategory.003009" }}</option>
-		<option value="003010">{{ i18n "ad.subcategory.003010" }}</option>
-		<option value="003011">{{ i18n "ad.subcategory.003011" }}</option>
-		<option value="003012">{{ i18n "ad.subcategory.003012" }}</option>
-		<option value="003013">{{ i18n "ad.subcategory.003013" }}</option>
-		<option value="003014">{{ i18n "ad.subcategory.003014" }}</option>
-		<option value="003015">{{ i18n "ad.subcategory.003015" }}</option>
-		<option value="003016">{{ i18n "ad.subcategory.003016" }}</option>
-		<option value="003017">{{ i18n "ad.subcategory.003017" }}</option>
-		<option value="003018">{{ i18n "ad.subcategory.003018" }}</option>
-		<option value="003019">{{ i18n "ad.subcategory.003019" }}</option>
-		<option value="003020">{{ i18n "ad.subcategory.003020" }}</option>
-		<option value="003021">{{ i18n "ad.subcategory.003021" }}</option>
-		<option value="003022">{{ i18n "ad.subcategory.003022" }}</option>		
-		<option value="003023">{{ i18n "ad.subcategory.003023" }}</option>		
-		<option value="003024">{{ i18n "ad.subcategory.003024" }}</option>		
-		<option value="003025">{{ i18n "ad.subcategory.003025" }}</option>		
-		<option value="003026">{{ i18n "ad.subcategory.003026" }}</option>		
-		<option value="003027">{{ i18n "ad.subcategory.003027" }}</option>		
-		<option value="003028">{{ i18n "ad.subcategory.003028" }}</option>		
-		<option value="003029">{{ i18n "ad.subcategory.003029" }}</option>		
-		<option value="003030">{{ i18n "ad.subcategory.003030" }}</option>	
+		<option value="003001">{{ lang "ad.subcategory.003001" }}</option>
+		<option value="003002">{{ lang "ad.subcategory.003002" }}</option>
+		<option value="003003">{{ lang "ad.subcategory.003003" }}</option>
+		<option value="003004">{{ lang "ad.subcategory.003004" }}</option>
+		<option value="003005">{{ lang "ad.subcategory.003005" }}</option>
+		<option value="003006">{{ lang "ad.subcategory.003006" }}</option>
+		<option value="003007">{{ lang "ad.subcategory.003007" }}</option>
+		<option value="003008">{{ lang "ad.subcategory.003008" }}</option>
+		<option value="003009">{{ lang "ad.subcategory.003009" }}</option>
+		<option value="003010">{{ lang "ad.subcategory.003010" }}</option>
+		<option value="003011">{{ lang "ad.subcategory.003011" }}</option>
+		<option value="003012">{{ lang "ad.subcategory.003012" }}</option>
+		<option value="003013">{{ lang "ad.subcategory.003013" }}</option>
+		<option value="003014">{{ lang "ad.subcategory.003014" }}</option>
+		<option value="003015">{{ lang "ad.subcategory.003015" }}</option>
+		<option value="003016">{{ lang "ad.subcategory.003016" }}</option>
+		<option value="003017">{{ lang "ad.subcategory.003017" }}</option>
+		<option value="003018">{{ lang "ad.subcategory.003018" }}</option>
+		<option value="003019">{{ lang "ad.subcategory.003019" }}</option>
+		<option value="003020">{{ lang "ad.subcategory.003020" }}</option>
+		<option value="003021">{{ lang "ad.subcategory.003021" }}</option>
+		<option value="003022">{{ lang "ad.subcategory.003022" }}</option>		
+		<option value="003023">{{ lang "ad.subcategory.003023" }}</option>		
+		<option value="003024">{{ lang "ad.subcategory.003024" }}</option>		
+		<option value="003025">{{ lang "ad.subcategory.003025" }}</option>		
+		<option value="003026">{{ lang "ad.subcategory.003026" }}</option>		
+		<option value="003027">{{ lang "ad.subcategory.003027" }}</option>		
+		<option value="003028">{{ lang "ad.subcategory.003028" }}</option>		
+		<option value="003029">{{ lang "ad.subcategory.003029" }}</option>		
+		<option value="003030">{{ lang "ad.subcategory.003030" }}</option>	
 		
-		<option value="004001">{{ i18n "ad.subcategory.004001" }}</option>
-		<option value="004002">{{ i18n "ad.subcategory.004002" }}</option>
-		<option value="004003">{{ i18n "ad.subcategory.004003" }}</option>
-		<option value="004004">{{ i18n "ad.subcategory.004004" }}</option>
-		<option value="004005">{{ i18n "ad.subcategory.004005" }}</option>
-		<option value="004006">{{ i18n "ad.subcategory.004006" }}</option>
+		<option value="004001">{{ lang "ad.subcategory.004001" }}</option>
+		<option value="004002">{{ lang "ad.subcategory.004002" }}</option>
+		<option value="004003">{{ lang "ad.subcategory.004003" }}</option>
+		<option value="004004">{{ lang "ad.subcategory.004004" }}</option>
+		<option value="004005">{{ lang "ad.subcategory.004005" }}</option>
+		<option value="004006">{{ lang "ad.subcategory.004006" }}</option>
 		
-		<option value="005001">{{ i18n "ad.subcategory.005001" }}</option>
-		<option value="005002">{{ i18n "ad.subcategory.005002" }}</option>
-		<option value="005003">{{ i18n "ad.subcategory.005003" }}</option>
-		<option value="005004">{{ i18n "ad.subcategory.005004" }}</option>
-		<option value="005005">{{ i18n "ad.subcategory.005005" }}</option>
-		<option value="005006">{{ i18n "ad.subcategory.005006" }}</option>
-		<option value="005007">{{ i18n "ad.subcategory.005007" }}</option>
-		<option value="005008">{{ i18n "ad.subcategory.005008" }}</option>
-		<option value="005009">{{ i18n "ad.subcategory.005009" }}</option>
-		<option value="005010">{{ i18n "ad.subcategory.005010" }}</option>
-		<option value="005011">{{ i18n "ad.subcategory.005011" }}</option>
-		<option value="005012">{{ i18n "ad.subcategory.005012" }}</option>	
+		<option value="005001">{{ lang "ad.subcategory.005001" }}</option>
+		<option value="005002">{{ lang "ad.subcategory.005002" }}</option>
+		<option value="005003">{{ lang "ad.subcategory.005003" }}</option>
+		<option value="005004">{{ lang "ad.subcategory.005004" }}</option>
+		<option value="005005">{{ lang "ad.subcategory.005005" }}</option>
+		<option value="005006">{{ lang "ad.subcategory.005006" }}</option>
+		<option value="005007">{{ lang "ad.subcategory.005007" }}</option>
+		<option value="005008">{{ lang "ad.subcategory.005008" }}</option>
+		<option value="005009">{{ lang "ad.subcategory.005009" }}</option>
+		<option value="005010">{{ lang "ad.subcategory.005010" }}</option>
+		<option value="005011">{{ lang "ad.subcategory.005011" }}</option>
+		<option value="005012">{{ lang "ad.subcategory.005012" }}</option>	
 		
-		<option value="006001">{{ i18n "ad.subcategory.006001" }}</option>
-		<option value="006002">{{ i18n "ad.subcategory.006002" }}</option>
-		<option value="006003">{{ i18n "ad.subcategory.006003" }}</option>
-		<option value="006004">{{ i18n "ad.subcategory.006004" }}</option>
-		<option value="006005">{{ i18n "ad.subcategory.006005" }}</option>
-		<option value="006006">{{ i18n "ad.subcategory.006006" }}</option>
-		<option value="006007">{{ i18n "ad.subcategory.006007" }}</option>			
+		<option value="006001">{{ lang "ad.subcategory.006001" }}</option>
+		<option value="006002">{{ lang "ad.subcategory.006002" }}</option>
+		<option value="006003">{{ lang "ad.subcategory.006003" }}</option>
+		<option value="006004">{{ lang "ad.subcategory.006004" }}</option>
+		<option value="006005">{{ lang "ad.subcategory.006005" }}</option>
+		<option value="006006">{{ lang "ad.subcategory.006006" }}</option>
+		<option value="006007">{{ lang "ad.subcategory.006007" }}</option>			
 
-		<option value="007001">{{ i18n "ad.subcategory.007001" }}</option>
-		<option value="007002">{{ i18n "ad.subcategory.007002" }}</option>
-		<option value="007003">{{ i18n "ad.subcategory.007003" }}</option>
-		<option value="007004">{{ i18n "ad.subcategory.007004" }}</option>
-		<option value="007005">{{ i18n "ad.subcategory.007005" }}</option>
-		<option value="007006">{{ i18n "ad.subcategory.007006" }}</option>
+		<option value="007001">{{ lang "ad.subcategory.007001" }}</option>
+		<option value="007002">{{ lang "ad.subcategory.007002" }}</option>
+		<option value="007003">{{ lang "ad.subcategory.007003" }}</option>
+		<option value="007004">{{ lang "ad.subcategory.007004" }}</option>
+		<option value="007005">{{ lang "ad.subcategory.007005" }}</option>
+		<option value="007006">{{ lang "ad.subcategory.007006" }}</option>
 
-		<option value="008001">{{ i18n "ad.subcategory.008001" }}</option>
-		<option value="008002">{{ i18n "ad.subcategory.008002" }}</option>
-		<option value="008003">{{ i18n "ad.subcategory.008003" }}</option>
-		<option value="008004">{{ i18n "ad.subcategory.008004" }}</option>
+		<option value="008001">{{ lang "ad.subcategory.008001" }}</option>
+		<option value="008002">{{ lang "ad.subcategory.008002" }}</option>
+		<option value="008003">{{ lang "ad.subcategory.008003" }}</option>
+		<option value="008004">{{ lang "ad.subcategory.008004" }}</option>
 		
-		<option value="009001">{{ i18n "ad.subcategory.009001" }}</option>
-		<option value="009002">{{ i18n "ad.subcategory.009002" }}</option>
-		<option value="009003">{{ i18n "ad.subcategory.009003" }}</option>
-		<option value="009004">{{ i18n "ad.subcategory.009004" }}</option>
-		<option value="009005">{{ i18n "ad.subcategory.009005" }}</option>
-		<option value="009006">{{ i18n "ad.subcategory.009006" }}</option>
-		<option value="009007">{{ i18n "ad.subcategory.009007" }}</option>
-		<option value="009008">{{ i18n "ad.subcategory.009008" }}</option>
-		<option value="009009">{{ i18n "ad.subcategory.009009" }}</option>
+		<option value="009001">{{ lang "ad.subcategory.009001" }}</option>
+		<option value="009002">{{ lang "ad.subcategory.009002" }}</option>
+		<option value="009003">{{ lang "ad.subcategory.009003" }}</option>
+		<option value="009004">{{ lang "ad.subcategory.009004" }}</option>
+		<option value="009005">{{ lang "ad.subcategory.009005" }}</option>
+		<option value="009006">{{ lang "ad.subcategory.009006" }}</option>
+		<option value="009007">{{ lang "ad.subcategory.009007" }}</option>
+		<option value="009008">{{ lang "ad.subcategory.009008" }}</option>
+		<option value="009009">{{ lang "ad.subcategory.009009" }}</option>
 		
-		<option value="010001">{{ i18n "ad.subcategory.010001" }}</option>
-		<option value="010002">{{ i18n "ad.subcategory.010002" }}</option>
-		<option value="010003">{{ i18n "ad.subcategory.010003" }}</option>
-		<option value="010004">{{ i18n "ad.subcategory.010004" }}</option>
-		<option value="010005">{{ i18n "ad.subcategory.010005" }}</option>
-		<option value="010006">{{ i18n "ad.subcategory.010006" }}</option>
-		<option value="010007">{{ i18n "ad.subcategory.010007" }}</option>
-		<option value="010008">{{ i18n "ad.subcategory.010008" }}</option>
-		<option value="010009">{{ i18n "ad.subcategory.010009" }}</option>
-		<option value="010010">{{ i18n "ad.subcategory.010010" }}</option>		
+		<option value="010001">{{ lang "ad.subcategory.010001" }}</option>
+		<option value="010002">{{ lang "ad.subcategory.010002" }}</option>
+		<option value="010003">{{ lang "ad.subcategory.010003" }}</option>
+		<option value="010004">{{ lang "ad.subcategory.010004" }}</option>
+		<option value="010005">{{ lang "ad.subcategory.010005" }}</option>
+		<option value="010006">{{ lang "ad.subcategory.010006" }}</option>
+		<option value="010007">{{ lang "ad.subcategory.010007" }}</option>
+		<option value="010008">{{ lang "ad.subcategory.010008" }}</option>
+		<option value="010009">{{ lang "ad.subcategory.010009" }}</option>
+		<option value="010010">{{ lang "ad.subcategory.010010" }}</option>		
 		</select>
 		</div>
 	</li>
@@ -254,9 +260,9 @@
 	<!-- Notifications -->
 	<div data-role="page" id="page1">
 	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
-	    <h1><b>STI Mobile - Udalosti</b></h1>
-	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all">Settings</a>
-	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all">Log out</a>
+	    <h1><b><span class="i18n" data-i18n="titleEvents"></span></b></h1>
+	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="settings"></span></a>
+	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
 	  </div>
 	  <div data-role="main" class="ui-content" data-theme="a">
 	  	<div id="notifications-container"></div>
@@ -264,21 +270,21 @@
 	  <div data-role="footer" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
 	    <div data-role="navbar">
 	      <ul>
-	        <li><a href="#page1" data-transition="none"  class="ui-btn-active ui-state-persist" data-icon="clock">Udalosti</a></li>
-	        <li><a href="#page2" data-transition="none" data-icon="bullets">Uložené inzeráty</a></li>
-	        <li><a href="#page3" data-transition="none" data-icon="plus">Nový inzerát</a></li>
+	        <li><a href="#page1" data-transition="none"  class="ui-btn-active ui-state-persist" data-icon="clock"><span class="i18n" data-i18n="events"></span></a></li>
+	        <li><a href="#page2" data-transition="none" data-icon="bullets"><span class="i18n" data-i18n="savedAds"></span></a></li>
+	        <li><a href="#page3" data-transition="none" data-icon="plus"><span class="i18n" data-i18n="newAd"></span></a></li>
 	      </ul>
 	    </div>
 	  </div>  
 	</div>    
 
 
-	<!-- List of adds -->
+	<!-- List of ads -->
 	<div data-role="page" id="page2">
 	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
-	    <h1><b>STI Mobile - Ulozene inzeraty</b></h1>
-	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all">Settings</a>
-	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all">Log out</a>
+	    <h1><b><span class="i18n" data-i18n="titleSavedAds"></span></b></h1>
+	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="settings"></span></a>
+	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
 	  </div>
 	  <div data-role="main" class="ui-content">
 	  	<div id="ads-container"></div>
@@ -286,9 +292,9 @@
 	  <div data-role="footer" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
 	    <div data-role="navbar">
 	      <ul>
-	        <li><a href="#page1" data-transition="none" data-icon="clock">Udalosti</a></li>
-	        <li><a href="#page2" data-transition="none"  class="ui-btn-active ui-state-persist" data-icon="bullets">Uložené inzeráty</a></li>
-	        <li><a href="#page3" data-transition="none" data-icon="plus">Nový inzerát</a></li>
+	        <li><a href="#page1" data-transition="none" data-icon="clock"><span class="i18n" data-i18n="events"></span></a></li>
+	        <li><a href="#page2" data-transition="none" data-icon="bullets"  class="ui-btn-active ui-state-persist" ><span class="i18n" data-i18n="savedAds"></span></a></li>
+	        <li><a href="#page3" data-transition="none" data-icon="plus"><span class="i18n" data-i18n="newAd"></span></a></li>
 	      </ul>
 	    </div>
 	  </div>  
@@ -298,71 +304,71 @@
 	<!-- new Ad -->
 	<div data-role="page" id="page3">
 	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
-	    <h1><b>STI Mobile - Novy inzerat</b></h1>
-	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all">Settings</a>
-	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all">Log out</a>
+	    <h1><b><span class="i18n" data-i18n="titleNewAd"></span></b></h1>
+	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="settings"></span></a>
+	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
 	  </div>
 	  <div data-role="main" class="ui-content">
 		<form id="newAdForm" method="post" action="#newAd">
 			<ul data-role="listview" data-inset="false">
 				<li style="text-align: left">
 					<button type="button" id="photo-button" data-inline='true' autofocus>
-						Odfoť fotografiu
+						<span class="i18n" data-i18n="takePhoto"></span>
 					</button>
 					<div id="imageContainer" style="padding:5px">
 					</div>
 				</li>
 				<li data-role="fieldcontain">
 					  <fieldset data-role="controlgroup">
-					      <label for="sell">Ponuka</label>
+					      <label for="sell"><span class="i18n" data-i18n="sell"></span></label>
 					      <input type="radio" name="buySell" id="sell" value="sell" checked="checked">
-					      <label for="buy">Dopyt</label>
+					      <label for="buy"><span class="i18n" data-i18n="buy"></span></label>
 					      <input type="radio" name="buySell" id="buy" value="buy"> 
 					  </fieldset>
 				</li>
 				<li data-role="fieldcontain">
 					  <fieldset data-role="controlgroup">
-					      <label for="priceType1">Inzerát</label>
+					      <label for="priceType1"><span class="i18n" data-i18n="ad"></span></label>
 					      <input type="radio" name="priceType" id="priceType1" value="001" checked="checked">
-					      <label for="priceType2">Burza</label>
+					      <label for="priceType2"><span class="i18n" data-i18n="auction"></span></label>
 					      <input type="radio" name="priceType" id="priceType2" value="002"> 
 					  </fieldset>
 				</li>
 				<li data-role="fieldcontain">
-					<label for="select-choice-1b" class="select">Typ</label> 
+					<label for="select-choice-1b" class="select"><span class="i18n" data-i18n="type"></span></label> 
 					<select name="select-choice-1" id="type" data-native-menu="true">
-						<option value="001">Kovový šrot</option>
-						<option value="002">Zmiešaný šrot</option>
-						<option value="003">Demolácie</option>
-						<option value="004">Použité stroje</option>
-						<option value="005">Doprava</option>
-						<option value="006">Ponuka práce</option>
+						<option value="001" class="i18n" data-i18n="scrap"></option>
+						<option value="002" class="i18n" data-i18n="mixedScrap"></option>
+						<option value="003" class="i18n" data-i18n="demolitions"></option>
+						<option value="004" class="i18n" data-i18n="secondHand"></option>
+						<option value="005" class="i18n" data-i18n="transit"></option>
+						<option value="006" class="i18n" data-i18n="jobOffer"></option>
 					</select>
 				</li>
 				
 				<li data-role="fieldcontain" class="001 ad-form-template">
 				</li>
 				
-				<li data-role="fieldcontain"><label for="name2b">Cena (&euro;)</label>
+				<li data-role="fieldcontain"><label for="name2b"><span class="i18n" data-i18n="price"></span> (&euro;)</label>
 					<input type="text" name="name2" id="price" value="" data-clear-btn="true" >
 				</li>
 				
-				<li data-role="fieldcontain"><label for="name2b">Množstvo (kg)</label>
+				<li data-role="fieldcontain"><label for="name2b"><span class="i18n" data-i18n="amount"></span> (kg)</label>
 					<input type="text" name="name2" id="amount" value="" data-clear-btn="true">
 				</li>
-				<li data-role="fieldcontain"><label for="name2b">Popis</label>
+				<li data-role="fieldcontain"><label for="name2b"><span class="i18n" data-i18n="description"></span></label>
 					<textarea cols="40" rows="8" name="description" id="description" data-clear-btn="true"></textarea>
 				</li>
 				
 				<li style="text-align: left">
 					<button type="button" data-role="button" id="newAdSubmitSend">
-						Odoslať na server
+						<span class="i18n" data-i18n="saveToServer"></span>
 					</button>
 					<button type="button" data-role="button" id="newAdSubmit">
-						Uloziť lokálne
+						<span class="i18n" data-i18n="saveLocally"></span>
 					</button>
 					<button type="reset" id="newAdReset">
-						Vymazať formulár
+						<span class="i18n" data-i18n="resetForm"></span>
 					</button>
 				</li>
 				</ul>
@@ -371,9 +377,9 @@
 	  <div data-role="footer" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
 	    <div data-role="navbar">
 	      <ul>
-	        <li><a href="#page1" data-transition="none" data-icon="clock">Udalosti</a></li>
-	        <li><a href="#page2" data-transition="none" data-icon="bullets">Uložené inzeráty</a></li>
-	        <li><a href="#page3" data-transition="none" class="ui-btn-active ui-state-persist" data-icon="plus">Nový inzerát</a></li>
+	        <li><a href="#page1" data-transition="none" data-icon="clock"><span class="i18n" data-i18n="events"></span></a></li>
+	        <li><a href="#page2" data-transition="none" data-icon="bullets"><span class="i18n" data-i18n="savedAds"></span></a></li>
+	        <li><a href="#page3" data-transition="none" data-icon="plus"  class="ui-btn-active ui-state-persist"><span class="i18n" data-i18n="newAd"></span></a></li>
 	      </ul>
 	    </div>
 	  </div>  
@@ -383,22 +389,22 @@
     <!-- Login -->
 	<div data-role="page" id="login">
 	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
-	    <h1><b>STI</b></h1>
+	    <h1><b><span class="i18n" data-i18n="titleLogin"></span></b></h1>
 	  </div>
 	  <div data-role="main" class="ui-content">
 		<form id="newAdForm" method="post" action="#login">
 			<ul data-role="" data-inset="false" style="list-style-type: none;">
-				<li data-role="fieldcontain"><label for="loginValue">Login:</label>
+				<li data-role="fieldcontain"><label for="loginValue"><span class="i18n" data-i18n="login"></span>:</label>
 					<input type="text" name="login" id="loginValue" value="" data-clear-btn="true" placeholder="">
 				</li>
 				
-				<li data-role="fieldcontain"><label for="password">Heslo:</label>
+				<li data-role="fieldcontain"><label for="password"><span class="i18n" data-i18n="password"></span>:</label>
 					<input type="password" name="password" id="password" value="" data-clear-btn="true" placeholder="">
 				</li>
 				
 				<li style="text-align: right">
 					<button type="button" id="loginButton" data-inline='true'>
-						Odoslať
+						<span class="i18n" data-i18n="send"></span>
 					</button>
 				</li>
 			</ul>
@@ -413,8 +419,8 @@
 `	<!-- settings -->
 	<div data-role="page" id="page4">
 	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
-	    <h1><b>STI Mobile - Nastavenia</b></h1>
-	    <a href="#" class="btn-logout ui-btn-right ui-state-persist ui-btn-active ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all">Log out</a>
+	    <h1><b><span class="i18n" data-i18n="titleSettings"></span></b></h1>
+	    <a href="#" class="btn-logout ui-btn-right ui-state-persist ui-btn-active ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
 	  </div>
 	  <div data-role="main" class="ui-content" data-theme="a">
 		<form id="newAdForm" method="post" action="#newAd">
@@ -422,7 +428,7 @@
 				<li data-role="fieldcontain">
 					<div class="ui-field-contain">
 					    <fieldset data-role="controlgroup" data-mini="true">
-					        <legend>Frekvencia obnovy</legend>
+					        <legend><span class="i18n" data-i18n="refresh"></span></legend>
 						    <input type="radio" name="refresh" id="r300000" value="300000" checked="checked">
 					       	<label for="r300000">5 min</label>
 						      
@@ -444,20 +450,40 @@
 						    <input type="radio" name="baseUrl" id="baseUrl1" value="http://192.168.1.100:9002" checked="checked">
 					       	<label for="baseUrl1">localhost</label>
 						      
-						    <input type="radio" name="baseUrl" id="baseUrl2" value="http://bmsource.org:9002">
+						    <input type="radio" name="baseUrl" id="baseUrl2" value="https://bmsource.org:9001">
 						    <label for="baseUrl2">bmsource</label>
+					    </fieldset>
+					</div>					  
+				</li>
+				<li data-role="fieldcontain">
+					<div class="ui-field-contain">
+					    <fieldset data-role="controlgroup" data-mini="true">
+					        <legend><span class="i18n" data-i18n="lang"></span></legend>
+						    <input type="radio" name="lang" id="lang1" value="sk" checked="checked">
+					       	<label for="lang1">Slovensky</label>
+						    <input type="radio" name="lang" id="lang2" value="cz">
+					       	<label for="lang2">Česky</label>
+						    <input type="radio" name="lang" id="lang3" value="hu">
+					       	<label for="lang3">Magyar</label>
+						    <input type="radio" name="lang" id="lang4" value="pl">
+					       	<label for="lang4">Polski</label>
+						    <input type="radio" name="lang" id="lang5" value="de">
+					       	<label for="lang5">Deutsch</label>
+						    <input type="radio" name="lang" id="lang6" value="en">
+					       	<label for="lang6">English</label>
+						      
 					    </fieldset>
 					</div>					  
 				</li>
 				<li style="text-align: left">
 					<div>
 					<button type="button" data-role="button" id="settingsSave">
-						Uložit
+						<span class="i18n" data-i18n="save"></span>
 					</button>
 					<button type="button" data-role="button" id="settingsClear">
-						Zmazať dáta
+						<span class="i18n" data-i18n="deleteData"></span>
 					</button>
-					<a data-rel="back" href="#" class="ui-shadow ui-btn ui-corner-all">Zrušiť</a>
+					<a data-rel="back" href="#" class="ui-shadow ui-btn ui-corner-all"><span class="i18n" data-i18n="cancel"></span></a>
 					</div>
 				</li>
 				</ul>

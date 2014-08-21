@@ -6,31 +6,28 @@ var i18nMessages = {"ad.category.010":"Ostatné kovy","notify.hour":"Every %s ho
 * Fixme : only parse single char formatters eg. %s
 */
 var i18n = function(code) {
-var message = i18nMessages && i18nMessages[code] || code;
-// Encode %% to handle it later
-message = message.replace(/%%/g, "\0%\0");
-if (arguments.length > 1) {
-// Explicit ordered parameters
-for (var i=1; i<arguments.length; i++) {
-    var r = new RegExp("%" + i + "\\$\\w", "g");
-    message = message.replace(r, arguments[i]);
-}
-// Standard ordered parameters
-for (var i=1; i<arguments.length; i++) {
-    message = message.replace(/%\w/, arguments[i]);
-}
-}
-// Decode encoded %% to single %
-message = message.replace("\0%\0", "%");
-// Imbricated messages
-var imbricated = message.match(/&\{.*?\}/g);
-if (imbricated) {
-for (var i=0; i<imbricated.length; i++) {
-    var imbricated_code = imbricated[i].substring(2, imbricated[i].length-1).replace(/^\s*(.*?)\s*$/, "$1");
-    message = message.replace(imbricated[i], i18nMessages[imbricated_code] || "");
-}
-}
-return message;
+    var message = i18nMessages && i18nMessages[code] || code;
+    message = message.replace(/%%/g, "\0%\0");
+    if (arguments.length > 1) {
+        for ( var i = 1; i < arguments.length; i++) {
+            var r = new RegExp("%" + i + "\\$\\w", "g");
+            message = message.replace(r, arguments[i]);
+        }
+        for ( var i = 1; i < arguments.length; i++) {
+            message = message.replace(/%\w/, arguments[i]);
+        }
+    }
+    message = message.replace("\0%\0", "%");
+    var imbricated = message.match(/&\{.*?\}/g);
+    if (imbricated) {
+        for ( var i = 0; i < imbricated.length; i++) {
+            var imbricated_code = imbricated[i].substring(2,
+                    imbricated[i].length - 1).replace(/^\s*(.*?)\s*$/, "$1");
+            message = message.replace(imbricated[i],
+                    i18nMessages[imbricated_code] || "");
+        }
+    }
+    return message;
 };
 
 
@@ -67,9 +64,36 @@ var scrap = {
     // container for current ad images
     images : [],
     
-    init: function(){
-        $( "#popupSettings" ).enhanceWithin().popup();
+    renderMessages : function(){
+        var lg = MyLocalStorage.getItem("lang");
+        if(lg == null || lg == undefined)
+            lg = lang;
         
+        // translate all texts
+        var elms = $(".i18n");
+        for(var i = 0; i < elms.length; i++){
+            var elm = $(elms[i]);
+            if(messages[lg] != undefined){
+                elm.html(messages[lg][elm.attr("data-i18n")]);
+            }
+        }        
+    },
+    
+    t : function(key){
+        var lg = MyLocalStorage.getItem("lang");
+        if(lg == null || lg == undefined)
+            lg = lang;
+        if(messages[lg] != undefined){
+            console.log(key);
+            console.log(messages[lg][key]);
+            return  messages[lg][key];
+        }
+        return "null";
+    },
+    
+    init: function(){
+        
+        $( "#popupSettings" ).enhanceWithin().popup();
         
         // notifications pooler
         scrap.refresh = MyLocalStorage.getItem("refresh");
@@ -77,14 +101,28 @@ var scrap = {
             scrap.refresh = 20000;
             MyLocalStorage.setItem("refresh", scrap.refresh);
         }
+        
+        // init refresh setting
         $('input:radio[name="refresh"]').filter('[value="'+scrap.refresh+'"]').attr('checked', true);
         
+        // init lang setting
+        scrap.lang = MyLocalStorage.getItem("lang");
+        if(scrap.lang == null || scrap.lang == undefined){
+            scrap.lang = lang;
+            MyLocalStorage.setItem("lang", scrap.lang);
+        }
+        $('input:radio[name="lang"]').filter('[value="'+scrap.lang+'"]').attr('checked', true);
+        
+        // init host setting
         scrap.host = MyLocalStorage.getItem("host");
         if(scrap.host == null || scrap.host == undefined){
             scrap.host = "http://192.168.1.100:9002";
             MyLocalStorage.setItem("host", scrap.host);
         }
         $('input:radio[name="baseUrl"]').filter('[value="'+scrap.host+'"]').attr('checked', true);
+        
+        
+        
         
         // notifications pooler
         scrap.interval = setInterval(function(){
@@ -95,12 +133,17 @@ var scrap = {
         Handlebars.registerHelper('i18n',
             function(str){
               return (i18n != undefined ? i18n(str) : str);
-        }
-        );
+        });
+        
+        Handlebars.registerHelper('lang',
+            function(str){
+                return scrap.t(str);
+        });
         
         
         // check logged user
-        if(MyLocalStorage.getItem("password") == null || MyLocalStorage.getItem("login") == null){
+        if(MyLocalStorage.getItem("password") == null || MyLocalStorage.getItem("login") == null || MyLocalStorage.getItem("login") == undefined){
+            alert("redirect to login");
             $.mobile.navigate( "#login", { transition: "slide" });
         } else {
             $.mobile.navigate("#page1");
@@ -113,6 +156,7 @@ var scrap = {
             scrap.logout();
             MyLocalStorage.removeItem("ads");
             MyLocalStorage.removeItem("notifications");
+            alert("logout success");
         });
         
         $("#loginButton").click(function(){
@@ -134,10 +178,14 @@ var scrap = {
         $("#settingsClear").click(function(){
             MyLocalStorage.removeItem("notifications");
             scrap.listNotifications();
-            alert("Dáta  boli odstranené")
+            alert(scrap.t("alert.removed"));
         });    
 
         $("#settingsSave").click(function(){
+            scrap.lang = $('input[name=lang]:checked').val();
+            MyLocalStorage.setItem("lang", scrap.lang);
+            scrap.renderMessages();
+            
             scrap.refresh = $('input[name=refresh]:checked').val();
             MyLocalStorage.setItem("refresh", scrap.refresh);
             scrap.host = $('input[name=baseUrl]:checked').val();
@@ -149,7 +197,7 @@ var scrap = {
                 scrap.updateNotifications();
             }, scrap.refresh);
             
-            alert("Zmeny boli uložené");
+            alert(scrap.t("alert.saved"));
             $.mobile.navigate("#page1");
         });  
         
@@ -174,6 +222,8 @@ var scrap = {
         // init form
         scrap.form();
         scrap.selectbox();
+        
+        scrap.renderMessages();
     },
     
     updateNotifications: function(){
@@ -181,15 +231,18 @@ var scrap = {
             console.log("Internet je odpojený");
             return;
         }
-            
         var login = MyLocalStorage.getItem("login");
         var password = MyLocalStorage.getItem("password");
+        if(login == null || login == undefined){
+            return;
+        }
+        
         $.ajax({
             type: "GET",
             url: scrap.host+"/mobile-notifications?login="+login,
             success: function(data){
+                //alert("Notification " + JSON.stringify(data));
                 if(data != null && data.length > 0){
-                    //alert("Notification " + JSON.stringify(data));
                     
                     // initiate notifications list
                     var nlist = MyLocalStorage.getItem("notifications");
@@ -200,7 +253,7 @@ var scrap = {
                     // add items to nlist
                     for(var i = 0; i < data.length; i++){
                         data[data.length - 1].first = true;
-
+                        data[i].isAuction = data[i].isAuction;
                         data[i].typeLabel = i18n("ad.type."+data[i].type);
                         data[i].categoryLabel = i18n("ad.category."+data[i].category);
                         data[i].subCategoryLabel = i18n("ad.subcategory."+data[i].subCategory);
@@ -227,7 +280,7 @@ var scrap = {
                 }
             },
             error: function(err){
-                alert("Vyskytla sa chyba " + JSON.stringify(err));
+                alert(scrap.t("alert.error") + JSON.stringify(err));
             },
             contentType: "application/json"
         });     
@@ -292,21 +345,21 @@ var scrap = {
                         ft.upload(ad.images[i], encodeURI(scrap.host + "/mobile-upload"), function(){
                             scrap.deleteNewAd(ad.uuid);
                             scrap.cleanForm();
-                            alert("Inzerat bol úspešne odoslaný");
+                            alert(scrap.t("alert.ad.send"));
                         }, function(data){
-                            alert("Chyba " + JSON.stringify(data))
+                            alert("Error " + JSON.stringify(data))
                         }, options);
                     }
                 } else {
                     scrap.deleteNewAd(ad.uuid);
                     scrap.cleanForm();
-                    alert("Inzerat bol úspešne odoslaný");
+                    alert(scrap.t("alert.ad.send"));
                 }
             }, function(){
-                alert("Vyskytla sa chyba");
+                alert("Error");
             });    
         } else {
-            alert("Internet je odpojený");
+            alert(scrap.t("alert.connection"));
         }
     },
     
@@ -457,7 +510,10 @@ var scrap = {
             items.reverse();
         var source = $("#notifications-template").html();
         var template = Handlebars.compile(source);
-        var html = template({"items": items, "host" : scrap.host});        
+        
+        var header = "";
+        header=window.btoa(MyLocalStorage.getItem("login") + ":" + MyLocalStorage.getItem("password"));
+        var html = template({"items": items, "host" : scrap.host, "authorization" : header});        
         $("#notifications-container").html(html).trigger("create");
     },
 
@@ -552,7 +608,7 @@ var scrap = {
             data: JSON.stringify(data),
             success: success,
             error: function(err){
-                console.log("Error occured while posting to server "+scrap.host+"/mobile-newAd");
+                alert(scrap.t("alert.error") + JSON.stringify(err));
             },
             contentType: "application/json"
         });
