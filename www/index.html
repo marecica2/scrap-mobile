@@ -3,7 +3,7 @@
     <head>
         <title>STI Corp</title>
         <meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width; initial-scale=1.5; maximum-scale=1.5; minimum-scale=1.5; user-scalable=no; target-densityDpi=device-dpi" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" href="css/font-awesome.min.css" /> 
@@ -19,7 +19,6 @@
 		<!-- my javascripts -->
 	    <script type="text/javascript" src="js/handlebars.js"></script>
 	    <script type="text/javascript" src="js/scrap.js"></script>
-	    <!-- script type="text/javascript" src="http://192.168.1.100:8080/target/target-script-min.js"></script-->
 	    <script type="text/javascript">
 			$(document).ready(function(){
 				scrap.init();
@@ -260,9 +259,12 @@
 	<!-- Notifications -->
 	<div data-role="page" id="page1">
 	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
-	    <h1><b><span class="i18n" data-i18n="titleEvents"></span></b></h1>
-	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="settings"></span></a>
-	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
+	    <h1><span class="i18n" data-i18n="titleEvents"></span></h1>
+	    <div data-type="horizontal" data-role="control-group" class="ui-btn-left">
+	    	<a href="#page4" data-transition="slide" class="ui-btn ui-btn-active ui-icon-gear ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="settings"></span></a>
+	    	<a href="#" class="ui-btn ui-btn-active ui-icon-home ui-btn-icon-notext ui-corner-all"  onclick="window.open(scrap.host+'?'+scrap.authorizationHeader(), '_self');"><span class="i18n" data-i18n="go to STI portal"></span></a>
+	   	</div>
+		<a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
 	  </div>
 	  <div data-role="main" class="ui-content" data-theme="a">
 	  	<div id="notifications-container"></div>
@@ -283,8 +285,11 @@
 	<div data-role="page" id="page2">
 	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
 	    <h1><b><span class="i18n" data-i18n="titleSavedAds"></span></b></h1>
-	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="settings"></span></a>
-	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
+	    <div data-type="horizontal" data-role="control-group" class="ui-btn-left">
+	    	<a href="#page4" data-transition="slide" class="ui-btn ui-btn-active ui-icon-gear ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="settings"></span></a>
+	    	<a href="#" class="ui-btn ui-btn-active ui-icon-home ui-btn-icon-notext ui-corner-all"  onclick="window.open(scrap.host+'?'+scrap.authorizationHeader(), '_self');"><span class="i18n" data-i18n="go to STI portal"></span></a>
+	   	</div>
+		<a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
 	  </div>
 	  <div data-role="main" class="ui-content">
 	  	<div id="ads-container"></div>
@@ -305,8 +310,11 @@
 	<div data-role="page" id="page3">
 	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
 	    <h1><b><span class="i18n" data-i18n="titleNewAd"></span></b></h1>
-	    <a href="#page4" data-transition="slide" class="btn-settings ui-btn ui-icon-grid ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="settings"></span></a>
-	    <a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
+	    <div data-type="horizontal" data-role="control-group" class="ui-btn-left">
+	    	<a href="#page4" data-transition="slide" class="ui-btn ui-btn-active ui-icon-gear ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="settings"></span></a>
+	    	<a href="#" class="ui-btn ui-btn-active ui-icon-home ui-btn-icon-notext ui-corner-all"  onclick="window.open(scrap.host+'?'+scrap.authorizationHeader(), '_self');"><span class="i18n" data-i18n="go to STI portal"></span></a>
+	   	</div>
+		<a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
 	  </div>
 	  <div data-role="main" class="ui-content">
 		<form id="newAdForm" method="post" action="#newAd">
@@ -357,7 +365,7 @@
 					<input type="text" name="name2" id="amount" value="" data-clear-btn="true">
 				</li>
 				<li data-role="fieldcontain"><label for="name2b"><span class="i18n" data-i18n="description"></span></label>
-					<textarea cols="40" rows="8" name="description" id="description" data-clear-btn="true"></textarea>
+					<textarea cols="40" rows="8" name="description" id="description2" data-clear-btn="true"></textarea>
 				</li>
 				
 				<li style="text-align: left">
@@ -420,7 +428,8 @@
 	<div data-role="page" id="page4">
 	  <div data-role="header" class="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
 	    <h1><b><span class="i18n" data-i18n="titleSettings"></span></b></h1>
-	    <a href="#" class="btn-logout ui-btn-right ui-state-persist ui-btn-active ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
+	   	<a href="#" data-transition="slide" onclick="window.history.back();" class="ui-btn ui-btn-active ui-icon-carat-l ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="settings"></span></a>
+		<a href="#" class="btn-logout ui-btn-right ui-btn-active ui-state-persist ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all"><span class="i18n" data-i18n="logout"></span></a>
 	  </div>
 	  <div data-role="main" class="ui-content" data-theme="a">
 		<form id="newAdForm" method="post" action="#newAd">
@@ -447,11 +456,11 @@
 					<div class="ui-field-contain">
 					    <fieldset data-role="controlgroup" data-mini="true">
 					        <legend>Base url</legend>
-						    <input type="radio" name="baseUrl" id="baseUrl1" value="http://192.168.1.100:9002" checked="checked">
+						    <input type="radio" name="baseUrl" id="baseUrl1" value="https://192.168.1.100:11001" checked="checked">
 					       	<label for="baseUrl1">localhost</label>
 						      
-						    <input type="radio" name="baseUrl" id="baseUrl2" value="https://bmsource.org:9001">
-						    <label for="baseUrl2">bmsource</label>
+						    <input type="radio" name="baseUrl" id="baseUrl2" value="https://78.47.4.117:11001">
+						    <label for="baseUrl2">STI portal</label>
 					    </fieldset>
 					</div>					  
 				</li>
@@ -459,19 +468,18 @@
 					<div class="ui-field-contain">
 					    <fieldset data-role="controlgroup" data-mini="true">
 					        <legend><span class="i18n" data-i18n="lang"></span></legend>
-						    <input type="radio" name="lang" id="lang1" value="sk" checked="checked">
+						    <input type="radio" name="lang" id="lang1" class="lang" value="sk" checked="checked">
 					       	<label for="lang1">Slovensky</label>
-						    <input type="radio" name="lang" id="lang2" value="cz">
+						    <input type="radio" name="lang" id="lang2" class="lang" value="cz">
 					       	<label for="lang2">Česky</label>
-						    <input type="radio" name="lang" id="lang3" value="hu">
+						    <input type="radio" name="lang" id="lang3" class="lang" value="hu">
 					       	<label for="lang3">Magyar</label>
-						    <input type="radio" name="lang" id="lang4" value="pl">
+						    <input type="radio" name="lang" id="lang4" class="lang" value="pl">
 					       	<label for="lang4">Polski</label>
-						    <input type="radio" name="lang" id="lang5" value="de">
+						    <input type="radio" name="lang" id="lang5" class="lang" value="de">
 					       	<label for="lang5">Deutsch</label>
-						    <input type="radio" name="lang" id="lang6" value="en">
+						    <input type="radio" name="lang" id="lang6" class="lang" value="en">
 					       	<label for="lang6">English</label>
-						      
 					    </fieldset>
 					</div>					  
 				</li>
@@ -483,7 +491,7 @@
 					<button type="button" data-role="button" id="settingsClear">
 						<span class="i18n" data-i18n="deleteData"></span>
 					</button>
-					<a data-rel="back" href="#" class="ui-shadow ui-btn ui-corner-all"><span class="i18n" data-i18n="cancel"></span></a>
+					<a data-rel="back" href="#" class="ui-shadow ui-btn ui-corner-all"><span class="i18n" data-i18n="back"></span></a>
 					</div>
 				</li>
 				</ul>

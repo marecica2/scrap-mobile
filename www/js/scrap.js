@@ -1,38 +1,3 @@
-
-var i18nMessages = {"ad.category.010":"Ostatné kovy","notify.hour":"Every %s hour","ad.subcategory.005012":"Iné","ad.subcategory.005011":"Ms rafinačka","ad.subcategory.005010":"Ms triesky mix","notify.minutes":"Every %s minutes","address":"Adresa","categories":"Kategórie","ad.buy":"Dopyt","ad.sell":"Ponuka","ad.category.009":"Legovaný odpad nerez","ad.category.008":"Cín","ad.category.007":"Zinok","ad.category.006":"Olovo","ad.category.005":"Mosadz","minute":"minúta","ad.category.004":"Bronz","tagline":"Tu nájdete všetko pod jednou strechou","ad.subcategory.005009":"Tombak","ad.category.003":"Meď","ad.subcategory.005008":"Alpaka","ad.category.002":"Hliník sekundárny","ad.subcategory.005007":"Ms \"Kartuschen\"","ad.category.001":"Hliník","ad.subcategory.005006":"Ms nábojnice","feature.3.text":"Lorem ipsum dolor sit amet consectetur incididunt ut labore et dolore magna aliqua adipisicing elit seddo eiusmod ","ad.subcategory.005005":"Ms 58 triesky čisté","ad.subcategory.005004":"Ms kondenzačné trubky","input.password":"Heslo","ad.subcategory.005003":"Ms 58","ad.subcategory.005002":"Ms 63","ad.subcategory.005001":"Ms kohutiková","cancel":"Zrušiť","ad.subcategory":"Podkategoria","companyTaxId":"DIČ spoločnosti","registration.type.personal":"Súkromná osoba","ad.pricetype.002":"Aukcia","ad.subcategory.001014":"AlMn odpad","ad.pricetype.001":"Inzerát","ad.subcategory.001013":"AlMg3","ad.subcategory.001012":"AlMg výseky nové","ad.subcategory.001011":"AlMg plechy s foliou","ad.subcategory.001010":"AlMg plechy nové,lesklé","days":"dní","ad.price":"Cena","seconds":"sekúnd","profile":"Uzivatelsky profil","ads":"Inzeráty","ad.amount":"Mnozstvo","event.004":"Dobitie kreditu","country.Czech":"Česká republika","event.003":"Pridanie ponuky v aukcii","event.002":"Otvorenie inzerátu","ad.subcategory.001009":"AlSi 1 profily","event.001":"Otvorenie inzerátu","usrPhone":"Telefon","ad.subcategory.001008":"Al kovolisty","ad.subcategory.001007":"Al pasnice","registration.personalDetails":"Osobné údaje","ad.subcategory.001006":"Al drát 99,5 oxidovaný","ad.subcategory.001005":"Al drát 99,5 nový","login.login":"Prihlasovacie meno","ad.subcategory.001004":"AlMg profily lakované","ad.subcategory.001003":"Al plech 99,5 nový","ad.subcategory.001002":"AlMgSi 0,5 profily lesklé,nové","hour":"hodinu","ad.subcategory.001001":"Aluminium primárny","registration.now":"Zaregistrujte sa teraz!","phone":"Tel.","company":"Spoločnosť","services":"Služby a poplatky","Sed":"perspiciatis unde omnisiste natus error voluptatem remopa accusantium doloremque laudantium, totam rem aperiam.","ad.subcategory.002022":"Iné","ad.subcategory.002021":"Al plechovky","input.first":"Krstné meno","ad.subcategory.002020":"Al fľašove uzávery","ad.subcategory.006007":"Iné","ad.subcategory.006006":"Pb batérie","ad.subcategory.006005":"Pb guľky,diabolky,broky","ad.subcategory.006004":"Tlačiarenske olovo","ad.subcategory.006003":"Pb mašle","ad.subcategory.006002":"Vyvažovacie olovka","ad.subcategory.006001":"Pb odpad starý","input.login":"Prihlasovacie meno","cellPhone":"Mobil","register":"Odoslať","companyName":"Názov spoločnosti","feature.4.text":"Lorem ipsum dolor sit amet consectetur incididunt ut labore et dolore magna aliqua adipisicing elit seddo eiusmod ","ad.subcategory.002019":"Al žaluzie","ad.subcategory.002018":"Al značky","login":"Prihlasenie","ad.subcategory.002017":"Al “sendvič” plechy","ad.subcategory.002016":"Al rafinacia","why.us":"Preco si vybrat nas","ad.subcategory.002015":"Al kable","ad.subcategory.002014":"Al Fe laná","all.ads":"Všetky inzeráty","ad.subcategory.002013":"Al folie","ad.subcategory.002012":"Al triesky","ad.subcategory.002011":"Al kusový","ad.subcategory.002010":"Al disky","minutes":"minút","notify.hours":"Every %s hours","billingAddressState":"Krajina","country.Austria":"Rakúsko","billingAddressCity":"Mesto","ad.subcategory.003030":"Iné","ad.subcategory.002009":"Al liaty 2\u0026#37;","ad.subcategory.002008":"Al liaty bez Fe(nový+starý)","on.time":"v case","ad.subcategory.002007":"Al Cu chladiče s Fe","ad.subcategory.002006":"Lamely z Al chladičov","contact.us":"Kontaktujte nás","ad.subcategory.002005":"Al plechy s 2\u0026#37;Fe","ad.subcategory.002004":"Al plechy lakované(mix)","ad.subcategory.002003":"Al plechy nové","ad.subcategory.002002":"AlMgSi 0,5 profily s PVC nové","input.password.repeat":"Potvrdenie hesla","ad.subcategory.002001":"AlMgSi 0,5 profily s PVC staré","country.Poland":"Poľsko","ad.type.006":"Ponuka práce","ad.type.005":"Doprava","rating.4-Nepravdivé":"udaje","newest.ads":"Najnovsie inzeraty","ad.type.004":"Použitý stroj","ad.type.003":"Likvidácia","login.register":"Zaregistrujte sa tu.","ad.type.002":"Zmiešaný šrot","registration.personal":"Registrácia - osobný účet","login.question":"Este nemáte účet?","no.reviews":"Zatial ziadne hodnotenia","ad.type.001":"Kovový šrot","why.us.text":"Pretoze sme jedini na trhu. Lorem ipsum dolor sit amet consectetur incididunt ut labore et dolore magna aliqua adipisicing elit seddo eiusmod tempor.","ad.subcategory.003029":"Chladničkové motory","call.us":"Zavolajte nám","ad.subcategory.003028":"Elektromotory","ad.subcategory.003027":"Cu drát s papierom","ad.subcategory.003026":"Cu káble mastné","usrCellPhone":"Mobil","ad.subcategory.003025":"Cu zemné káble","invalid.captcha":"Invalid captcha","ad.subcategory.003024":"Cu káble k lupaniu","ad.subcategory.003023":"Cu káble s PVC","show.more":"Zobrazit vsetky hodnotenia","ad.subcategory.003022":"Cu káble","ad.subcategory.003021":"Cu Ms chladiče","review":"Hodnotenie","ad.subcategory.003020":"Cu trafa","credit":"Kredit","ad.subcategory.007006":"Iné","ad.subcategory.007005":"Zn vyvažovacie závažia","ad.subcategory.007004":"Zn zliatina stará s Fe","ad.subcategory.007003":"Zn zliatina nová,bez Fe","about.us":"O nás","ad.subcategory.007002":"Zn odpad starý","ad.subcategory.007001":"Zn odpad nový","logout":"Odhlásiť sa","registration.type.business":"Firma","ad.subcategory.003019":"Cu Wicu-trubky","ad.subcategory.003018":"Cu triesky","ad.subcategory.003017":"Cu cievky","feature.1.text":"Lorem ipsum dolor sit amet consectetur incididunt ut labore et dolore magna aliqua adipisicing elit seddo eiusmod ","ad.subcategory.003016":"Cu ľahká","ad.subcategory.003015":"Cu drát lakovaný","ad.subcategory.003014":"Cu “kanal” drát","ad.subcategory.003013":"Cu Raff 95\u0026#37;","ad.subcategory.003012":"Cu postriebrena","ad.subcategory.003011":"Cu poniklovaná","ad.subcategory.003010":"Cu kusová ťažka","rating.6-Nedodal":"tovar","usrFax":"Fax","hours":"hodín","log.in":"Prihlásiť sa","motivation2":"Nevahajte a zaregistrujte sa uz dnes.","motivation1":"STI je spolocnost zaoberajuca sa spravovanim informacii o srote.a vsetkych suvisiacich cinnostiach","input.last":"Priezvisko","notify.day":"Every day at %s","ad.subcategory.003009":"Cu plech,trubky nové","ad.subcategory.003008":"Cu drát holý","ad.subcategory.003007":"Cu pasnice lakované","ad.subcategory.003006":"Cu pasnice lesklé","ad.subcategory.010010":"Iné","ad.subcategory.003005":"Cu drát zelený","ad.url":"Odkaz na inzerat","ad.subcategory.003004":"Cu pocinovana","ad.subcategory.003003":"Cu granulát","ad.subcategory.003002":"Cu drát nový,lesklý","ad.subcategory.003001":"Cu katody","billingAddressStreet":"Ulica","save":"Ulozit","ad.category":"Kategoria","country.Hungary":"Maďarsko","ad.subcategory.010009":"Wolfrám","ad.subcategory.010008":"Molybdén","ad.subcategory.010007":"Katalyzátory","ad.subcategory.010006":"NI Zliatiny","companyId":"IČO spoločnosti","ad.subcategory.010005":"Niresist","ad.subcategory.010004":"Tvrdokov","ad.subcategory.010003":"Ti triesky","welcome":"Vitajte v portali STI","ad.subcategory.010002":"Ti odpad","ad.subcategory.010001":"Magnezium","registration.type":"Typ registrácie","ad.subcategory.008004":"Iné","ad.subcategory.008003":"Sn stery","ad.subcategory.008002":"Sn pájka","ad.subcategory.008001":"Sn čistý","feature.4":"Vsetko pod jednou strechou","notify.seconds":"Every %s seconds","feature.3":"Setrime Vam naklady","registration.accountDetails":"Údaje o spoločnosti","feature.2":"Setrime Vam cas","feature.1":"Vytvorene pre Vas biznis","contact":"Kontaktne udaje","rating.5-Neodpovedal":"","ad.type":"Typ","registration.business":"Registrácia - firma","registration.login":"Prihlasovacie meno v tvare emailu","display.all.ads":"Zobrazit vsetky","feature.2.text":"Lorem ipsum dolor sit amet consectetur incididunt ut labore et dolore magna aliqua adipisicing elit seddo eiusmod ","registration":"Registrácia","ad.subcategory.004006":"Iné","ad.subcategory.004005":"Bz Ms triesky","ad.subcategory.004004":"Bronz magnetický","ad.subcategory.004003":"Bronz cínový valcovaný","ad.subcategory.004002":"Bronz cínový kusový","fax":"Fax","rating.3":"Som spokojný","ad.subcategory.004001":"Bronz červený a triesky","rating.2":"Rýchla dohoda","rating.1":"Som maximálne spokojný","day":"deň","second":"sekunda","ad.state.003":"Vyprsana platnost inzeratu","ad.state.002":"Publikovany","home":"Domov","usrEmail":"Email","ad.state.001":"Nepublikovany","country.Slovakia":"Slovenská republika","ad.subcategory.009009":"Iné","added":"Pridane","ad.subcategory.009008":"NCT odpad","ad.subcategory.009007":"Ni odpad","email":"Email","ad.subcategory.009006":"Cr/Ni/Mo 18/10/2 triesky","ad.subcategory.009005":"Cr/Ni/Mo 18/10/2","ad.subcategory.009004":"Cr/Ni 18/8 triesky","ad.subcategory.009003":"Cr/Ni 18/8","ad.subcategory.009002":"Cr triesky","ad.subcategory.009001":"Cr odpad"};
-
-
-/**
-* Fixme : only parse single char formatters eg. %s
-*/
-var i18n = function(code) {
-    var message = i18nMessages && i18nMessages[code] || code;
-    message = message.replace(/%%/g, "\0%\0");
-    if (arguments.length > 1) {
-        for ( var i = 1; i < arguments.length; i++) {
-            var r = new RegExp("%" + i + "\\$\\w", "g");
-            message = message.replace(r, arguments[i]);
-        }
-        for ( var i = 1; i < arguments.length; i++) {
-            message = message.replace(/%\w/, arguments[i]);
-        }
-    }
-    message = message.replace("\0%\0", "%");
-    var imbricated = message.match(/&\{.*?\}/g);
-    if (imbricated) {
-        for ( var i = 0; i < imbricated.length; i++) {
-            var imbricated_code = imbricated[i].substring(2,
-                    imbricated[i].length - 1).replace(/^\s*(.*?)\s*$/, "$1");
-            message = message.replace(imbricated[i],
-                    i18nMessages[imbricated_code] || "");
-        }
-    }
-    return message;
-};
-
-
-
-
 var MyLocalStorage = {};
 
 MyLocalStorage.getItem = function(key) {
@@ -49,6 +14,7 @@ MyLocalStorage.removeItem = function(key) {
     localStorage.removeItem(key);
 };
 
+
 var scrap = {
     parseJson : function(json){
         if(json != null || json != undefined){
@@ -59,7 +25,7 @@ var scrap = {
     },    
         
     refresh: 20000,
-    host: "http://192.168.1.100:9002",
+    host: "http://192.168.1.100:11002",
     
     // container for current ad images
     images : [],
@@ -84,8 +50,6 @@ var scrap = {
         if(lg == null || lg == undefined)
             lg = lang;
         if(messages[lg] != undefined){
-            console.log(key);
-            console.log(messages[lg][key]);
             return  messages[lg][key];
         }
         return "null";
@@ -116,12 +80,13 @@ var scrap = {
         // init host setting
         scrap.host = MyLocalStorage.getItem("host");
         if(scrap.host == null || scrap.host == undefined){
-            scrap.host = "http://192.168.1.100:9002";
+            scrap.host = "http://192.168.1.100:11002";
             MyLocalStorage.setItem("host", scrap.host);
         }
+        scrap.host = "http://192.168.1.100:11002";
+        
+        
         $('input:radio[name="baseUrl"]').filter('[value="'+scrap.host+'"]').attr('checked', true);
-        
-        
         
         
         // notifications pooler
@@ -132,7 +97,7 @@ var scrap = {
         // register i18n function
         Handlebars.registerHelper('i18n',
             function(str){
-              return (i18n != undefined ? i18n(str) : str);
+              return (t != undefined ? t(str) : str);
         });
         
         Handlebars.registerHelper('lang',
@@ -143,10 +108,11 @@ var scrap = {
         
         // check logged user
         if(MyLocalStorage.getItem("password") == null || MyLocalStorage.getItem("login") == null || MyLocalStorage.getItem("login") == undefined){
-            alert("redirect to login");
             $.mobile.navigate( "#login", { transition: "slide" });
         } else {
             $.mobile.navigate("#page1");
+            scrap.user = MyLocalStorage.getItem("login");
+            scrap.password = MyLocalStorage.getItem("password");
             scrap.listAds();
             scrap.listNotifications();
         }
@@ -156,7 +122,6 @@ var scrap = {
             scrap.logout();
             MyLocalStorage.removeItem("ads");
             MyLocalStorage.removeItem("notifications");
-            alert("logout success");
         });
         
         $("#loginButton").click(function(){
@@ -178,7 +143,10 @@ var scrap = {
         $("#settingsClear").click(function(){
             MyLocalStorage.removeItem("notifications");
             scrap.listNotifications();
-            alert(scrap.t("alert.removed"));
+        });    
+
+        $(".lang").change(function(){
+            console.log("xx");
         });    
 
         $("#settingsSave").click(function(){
@@ -197,7 +165,6 @@ var scrap = {
                 scrap.updateNotifications();
             }, scrap.refresh);
             
-            alert(scrap.t("alert.saved"));
             $.mobile.navigate("#page1");
         });  
         
@@ -228,20 +195,21 @@ var scrap = {
     
     updateNotifications: function(){
         if(!scrap.checkConnection()){
-            console.log("Internet je odpojený");
+            console.log("Internet is disconnected");
             return;
         }
-        var login = MyLocalStorage.getItem("login");
-        var password = MyLocalStorage.getItem("password");
+        var login = scrap.login;
+        var password = scrap.password;
         if(login == null || login == undefined){
             return;
         }
         
+        console.log("notification " + scrap.host);
         $.ajax({
             type: "GET",
-            url: scrap.host+"/mobile-notifications?login="+login,
+            url: scrap.host+"/mobile-notifications?login="+scrap.user,
             success: function(data){
-                //alert("Notification " + JSON.stringify(data));
+                console.log("success notification " + scrap.host);
                 if(data != null && data.length > 0){
                     
                     // initiate notifications list
@@ -254,9 +222,9 @@ var scrap = {
                     for(var i = 0; i < data.length; i++){
                         data[data.length - 1].first = true;
                         data[i].isAuction = data[i].isAuction;
-                        data[i].typeLabel = i18n("ad.type."+data[i].type);
-                        data[i].categoryLabel = i18n("ad.category."+data[i].category);
-                        data[i].subCategoryLabel = i18n("ad.subcategory."+data[i].subCategory);
+                        data[i].typeLabel = t("ad.type."+data[i].type);
+                        data[i].categoryLabel = t("ad.category."+data[i].category);
+                        data[i].subCategoryLabel = t("ad.subcategory."+data[i].subCategory);
                         nlist.push(data[i]);
                     }
                     
@@ -278,9 +246,6 @@ var scrap = {
                     else if(data.length > 1 && data.length < 5)
                         window.plugin.notification.local.add({ message: "Máte "+ data.length + " nové upozornenia."}); 
                 }
-            },
-            error: function(err){
-                alert(scrap.t("alert.error") + JSON.stringify(err));
             },
             contentType: "application/json"
         });     
@@ -319,47 +284,53 @@ var scrap = {
         ad.uuid  = scrap.guid();
         ad.login = MyLocalStorage.getItem("login");
         ad.password = MyLocalStorage.getItem("password");
-        
+        ad.description = $("#description").val();
         scrap.postAd(ad);
     },
     
-    
+    // xxx
+    // http post to /mobile-newAd
     postAd: function(ad){
         if(scrap.checkConnection()){
             scrap.postAdAjax(ad, null, function(){
-                //alert("new Ad images:" + JSON.stringify(ad.images));
+                console.log("xxx ");
                 if(ad.images != undefined && ad.images != null && ad.images.length > 0){
+                   
                     for(var i = 0; i < ad.images.length; i++){
-                        //alert("image to send: " + ad.images[i]);
+                        console.log("image to send: " + ad.images[i]);
                         var options = new FileUploadOptions();
                         options.fileKey = "file";
                         options.fileName = "test.jpg";
                         options.mimeType = "image/jpeg";
+                        options.httpMethod = "POST";
+                        options.chunkedMode = false;
                         options.params = {};
                         options.params.login = MyLocalStorage.getItem("login");
                         options.params.password = MyLocalStorage.getItem("password");
                         options.params.id = ad.uuid;
+                        console.log(options);
 
                         // send images
                         var ft = new FileTransfer();
                         ft.upload(ad.images[i], encodeURI(scrap.host + "/mobile-upload"), function(){
                             scrap.deleteNewAd(ad.uuid);
                             scrap.cleanForm();
-                            alert(scrap.t("alert.ad.send"));
+                            console.log(messages[lang]["alert.ad.send"]);
                         }, function(data){
-                            alert("Error " + JSON.stringify(data))
+                            console.log(data)
                         }, options);
                     }
+                    
                 } else {
                     scrap.deleteNewAd(ad.uuid);
                     scrap.cleanForm();
-                    alert(scrap.t("alert.ad.send"));
+                    console.log(messages[lang]["alert.ad.send"]);
                 }
             }, function(){
-                alert("Error");
+                console.log("Error");
             });    
         } else {
-            alert(scrap.t("alert.connection"));
+            console.log(messages[lang]["alert.connection"]);
         }
     },
     
@@ -384,7 +355,6 @@ var scrap = {
         
         if(index > -1){
             ads.splice(index, 1);
-            console.log(ads);
             MyLocalStorage.setItem("newAds", ads);
             scrap.listAds();
         }
@@ -470,12 +440,11 @@ var scrap = {
         ad.uuid  = scrap.guid();
         ad.login = MyLocalStorage.getItem("login");
         ad.password = MyLocalStorage.getItem("password");
+        ad.description = $("#description").val();
         
         // clean images
         $("#imageContainer").html();
         scrap.images = [];
-        console.log(ad);
-        
         var newAds = MyLocalStorage.getItem("newAds");
         if(newAds == null || newAds == undefined)
             newAds = [];
@@ -485,7 +454,6 @@ var scrap = {
         
         // refresh ads
         scrap.listAds();
-        
         $.mobile.navigate("#page2");
     },
 
@@ -493,9 +461,9 @@ var scrap = {
         var items = MyLocalStorage.getItem("newAds");
         for(var i in items){
             var item = items[i];
-            item.typeLabel = i18n("ad.type."+item.type);
-            item.categoryLabel = i18n("ad.category."+item.category);
-            item.subCategoryLabel = i18n("ad.subcategory."+item.subCategory);
+            item.typeLabel = t("ad.type."+item.type);
+            item.categoryLabel = t("ad.category."+item.category);
+            item.subCategoryLabel = t("ad.subcategory."+item.subCategory);
         }
 
         var source = $("#ads-template").html();
@@ -518,7 +486,7 @@ var scrap = {
     },
 
     takePhoto: function() {
-        var options = { quality : 100, 
+        var options = { quality : 95, 
                 destinationType: Camera.DestinationType.FILE_URI, 
                 correctOrientation : true,
                 encodingType: Camera.EncodingType.JPEG,
@@ -534,7 +502,7 @@ var scrap = {
     },
 
     photoFail: function(message) {
-        //alert('Failed because: ' + message);
+        console.log(message);
     },
     
     logout: function() {
@@ -546,7 +514,8 @@ var scrap = {
     login: function() {
         MyLocalStorage.setItem("password", $("#password").val());
         MyLocalStorage.setItem("login", $("#loginValue").val());
-        
+        scrap.user = MyLocalStorage.getItem("login");
+        scrap.password = MyLocalStorage.getItem("password");
         $("#loginValue").val(null);
         $("#password").val(null);
         scrap.listAds();
@@ -585,6 +554,10 @@ var scrap = {
         return true;
     },
     
+    authorizationHeader: function() {
+        return "Authorization="+btoa(scrap.user+":"+scrap.password);
+    },
+    
     getAds : function(params, success, error){
         console.log("%% GET " + scrap.host+"/ads?"+params);
         $.ajax({
@@ -593,9 +566,6 @@ var scrap = {
             success: success,
             error: function(err){
                 console.log(err);
-                console.log(err.status);
-                console.log(err.statusText);
-                console.log(err.responseText);
             },
             contentType: "application/json"
         });
@@ -604,13 +574,13 @@ var scrap = {
     postAdAjax : function(data, params, success, error){
         $.ajax({
             type: "POST",
+            contentType: "application/json",
             url: scrap.host+"/mobile-newAd",
             data: JSON.stringify(data),
             success: success,
             error: function(err){
-                alert(scrap.t("alert.error") + JSON.stringify(err));
-            },
-            contentType: "application/json"
+                console.log(err);
+            }
         });
     },
     
